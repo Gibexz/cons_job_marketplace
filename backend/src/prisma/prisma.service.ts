@@ -1,6 +1,7 @@
-//import { PrismaClient } from '@prisma/client';
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 import { Injectable, OnModuleInit } from '@nestjs/common';
+// const { PrismaClient } = require('@prisma/client');
+
 
 @Injectable()
 export class PrismaService
