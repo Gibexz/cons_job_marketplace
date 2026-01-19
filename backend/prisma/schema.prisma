@@ -28,6 +28,7 @@ model Job {
   id          String   @id @default(uuid())
   title       String
   description String
+  company     String?
   postedById  String
   postedBy    User     @relation(fields: [postedById], references: [id])
   createdAt   DateTime @default(now())
