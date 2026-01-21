@@ -4,11 +4,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Injectable } from '@nestjs/common';
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 let AuthService = class AuthService {
+    prisma;
+    jwtService;
+    constructor(prisma, jwtService) {
+        this.prisma = prisma;
+        this.jwtService = jwtService;
+    }
+    async register(data) {
+        const hashedPassword = await bcrypt.hash(data.password, 10);
+        const user = await this.prisma.user.create({
+            data: {
+                email: data.email,
+                name: data.name,
+                password: hashedPassword,
+            },
+        });
+        return { message: 'User registered successfully' };
+    }
+    async login(data) {
+        const user = await this.prisma.user.findUnique({
+            where: { email: data.email },
+        });
+        if (!user)
+            throw new UnauthorizedException();
+        const passwordMatch = await bcrypt.compare(data.password, user.password);
+        if (!passwordMatch)
+            throw new UnauthorizedException();
+        const payload = { sub: user.id, email: user.email };
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
+    }
 };
 AuthService = __decorate([
-    Injectable()
+    Injectable(),
+    __metadata("design:paramtypes", [PrismaService,
+        JwtService])
 ], AuthService);
 export { AuthService };
 //# sourceMappingURL=auth.service.js.map

@@ -5,14 +5,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
+import { PrismaModule } from '../prisma/prisma.module.js';
+import { JwtStrategy } from './jwt.strategy.js';
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
     Module({
+        imports: [
+            PrismaModule,
+            JwtModule.register({
+                secret: process.env.JWT_SECRET,
+                signOptions: { expiresIn: '1d' },
+            }),
+        ],
         controllers: [AuthController],
-        providers: [AuthService],
+        providers: [AuthService, JwtStrategy],
     })
 ], AuthModule);
 export { AuthModule };
