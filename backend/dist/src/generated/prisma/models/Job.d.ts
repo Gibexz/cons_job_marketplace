@@ -10,6 +10,7 @@ export type JobMinAggregateOutputType = {
     id: string | null;
     title: string | null;
     description: string | null;
+    company: string | null;
     postedById: string | null;
     createdAt: Date | null;
 };
@@ -17,6 +18,7 @@ export type JobMaxAggregateOutputType = {
     id: string | null;
     title: string | null;
     description: string | null;
+    company: string | null;
     postedById: string | null;
     createdAt: Date | null;
 };
@@ -24,6 +26,7 @@ export type JobCountAggregateOutputType = {
     id: number;
     title: number;
     description: number;
+    company: number;
     postedById: number;
     createdAt: number;
     _all: number;
@@ -32,6 +35,7 @@ export type JobMinAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    company?: true;
     postedById?: true;
     createdAt?: true;
 };
@@ -39,6 +43,7 @@ export type JobMaxAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    company?: true;
     postedById?: true;
     createdAt?: true;
 };
@@ -46,6 +51,7 @@ export type JobCountAggregateInputType = {
     id?: true;
     title?: true;
     description?: true;
+    company?: true;
     postedById?: true;
     createdAt?: true;
     _all?: true;
@@ -78,6 +84,7 @@ export type JobGroupByOutputType = {
     id: string;
     title: string;
     description: string;
+    company: string | null;
     postedById: string;
     createdAt: Date;
     _count: JobCountAggregateOutputType | null;
@@ -94,6 +101,7 @@ export type JobWhereInput = {
     id?: Prisma.StringFilter<"Job"> | string;
     title?: Prisma.StringFilter<"Job"> | string;
     description?: Prisma.StringFilter<"Job"> | string;
+    company?: Prisma.StringNullableFilter<"Job"> | string | null;
     postedById?: Prisma.StringFilter<"Job"> | string;
     createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string;
     postedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
@@ -102,6 +110,7 @@ export type JobOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    company?: Prisma.SortOrderInput | Prisma.SortOrder;
     postedById?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     postedBy?: Prisma.UserOrderByWithRelationInput;
@@ -113,6 +122,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.JobWhereInput | Prisma.JobWhereInput[];
     title?: Prisma.StringFilter<"Job"> | string;
     description?: Prisma.StringFilter<"Job"> | string;
+    company?: Prisma.StringNullableFilter<"Job"> | string | null;
     postedById?: Prisma.StringFilter<"Job"> | string;
     createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string;
     postedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
@@ -121,6 +131,7 @@ export type JobOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    company?: Prisma.SortOrderInput | Prisma.SortOrder;
     postedById?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     _count?: Prisma.JobCountOrderByAggregateInput;
@@ -134,6 +145,7 @@ export type JobScalarWhereWithAggregatesInput = {
     id?: Prisma.StringWithAggregatesFilter<"Job"> | string;
     title?: Prisma.StringWithAggregatesFilter<"Job"> | string;
     description?: Prisma.StringWithAggregatesFilter<"Job"> | string;
+    company?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null;
     postedById?: Prisma.StringWithAggregatesFilter<"Job"> | string;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string;
 };
@@ -141,6 +153,7 @@ export type JobCreateInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     createdAt?: Date | string;
     postedBy: Prisma.UserCreateNestedOneWithoutJobsInput;
 };
@@ -148,6 +161,7 @@ export type JobUncheckedCreateInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     postedById: string;
     createdAt?: Date | string;
 };
@@ -155,6 +169,7 @@ export type JobUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     postedBy?: Prisma.UserUpdateOneRequiredWithoutJobsNestedInput;
 };
@@ -162,6 +177,7 @@ export type JobUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     postedById?: Prisma.StringFieldUpdateOperationsInput | string;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -169,6 +185,7 @@ export type JobCreateManyInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     postedById: string;
     createdAt?: Date | string;
 };
@@ -176,12 +193,14 @@ export type JobUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type JobUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     postedById?: Prisma.StringFieldUpdateOperationsInput | string;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -197,6 +216,7 @@ export type JobCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    company?: Prisma.SortOrder;
     postedById?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
@@ -204,6 +224,7 @@ export type JobMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    company?: Prisma.SortOrder;
     postedById?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
@@ -211,6 +232,7 @@ export type JobMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    company?: Prisma.SortOrder;
     postedById?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
@@ -256,12 +278,14 @@ export type JobCreateWithoutPostedByInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     createdAt?: Date | string;
 };
 export type JobUncheckedCreateWithoutPostedByInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     createdAt?: Date | string;
 };
 export type JobCreateOrConnectWithoutPostedByInput = {
@@ -292,6 +316,7 @@ export type JobScalarWhereInput = {
     id?: Prisma.StringFilter<"Job"> | string;
     title?: Prisma.StringFilter<"Job"> | string;
     description?: Prisma.StringFilter<"Job"> | string;
+    company?: Prisma.StringNullableFilter<"Job"> | string | null;
     postedById?: Prisma.StringFilter<"Job"> | string;
     createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string;
 };
@@ -299,30 +324,35 @@ export type JobCreateManyPostedByInput = {
     id?: string;
     title: string;
     description: string;
+    company?: string | null;
     createdAt?: Date | string;
 };
 export type JobUpdateWithoutPostedByInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type JobUncheckedUpdateWithoutPostedByInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type JobUncheckedUpdateManyWithoutPostedByInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
+    company?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    company?: boolean;
     postedById?: boolean;
     createdAt?: boolean;
     postedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
@@ -331,6 +361,7 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    company?: boolean;
     postedById?: boolean;
     createdAt?: boolean;
     postedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
@@ -339,6 +370,7 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    company?: boolean;
     postedById?: boolean;
     createdAt?: boolean;
     postedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
@@ -347,10 +379,11 @@ export type JobSelectScalar = {
     id?: boolean;
     title?: boolean;
     description?: boolean;
+    company?: boolean;
     postedById?: boolean;
     createdAt?: boolean;
 };
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "postedById" | "createdAt", ExtArgs["result"]["job"]>;
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "company" | "postedById" | "createdAt", ExtArgs["result"]["job"]>;
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     postedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
@@ -369,6 +402,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
         id: string;
         title: string;
         description: string;
+        company: string | null;
         postedById: string;
         createdAt: Date;
     }, ExtArgs["result"]["job"]>;
@@ -432,6 +466,7 @@ export interface JobFieldRefs {
     readonly id: Prisma.FieldRef<"Job", 'String'>;
     readonly title: Prisma.FieldRef<"Job", 'String'>;
     readonly description: Prisma.FieldRef<"Job", 'String'>;
+    readonly company: Prisma.FieldRef<"Job", 'String'>;
     readonly postedById: Prisma.FieldRef<"Job", 'String'>;
     readonly createdAt: Prisma.FieldRef<"Job", 'DateTime'>;
 }

@@ -11,6 +11,7 @@ export type UserMinAggregateOutputType = {
     email: string | null;
     password: string | null;
     name: string | null;
+    country: string | null;
     createdAt: Date | null;
 };
 export type UserMaxAggregateOutputType = {
@@ -18,6 +19,7 @@ export type UserMaxAggregateOutputType = {
     email: string | null;
     password: string | null;
     name: string | null;
+    country: string | null;
     createdAt: Date | null;
 };
 export type UserCountAggregateOutputType = {
@@ -25,6 +27,7 @@ export type UserCountAggregateOutputType = {
     email: number;
     password: number;
     name: number;
+    country: number;
     createdAt: number;
     _all: number;
 };
@@ -33,6 +36,7 @@ export type UserMinAggregateInputType = {
     email?: true;
     password?: true;
     name?: true;
+    country?: true;
     createdAt?: true;
 };
 export type UserMaxAggregateInputType = {
@@ -40,6 +44,7 @@ export type UserMaxAggregateInputType = {
     email?: true;
     password?: true;
     name?: true;
+    country?: true;
     createdAt?: true;
 };
 export type UserCountAggregateInputType = {
@@ -47,6 +52,7 @@ export type UserCountAggregateInputType = {
     email?: true;
     password?: true;
     name?: true;
+    country?: true;
     createdAt?: true;
     _all?: true;
 };
@@ -79,6 +85,7 @@ export type UserGroupByOutputType = {
     email: string;
     password: string;
     name: string;
+    country: string | null;
     createdAt: Date;
     _count: UserCountAggregateOutputType | null;
     _min: UserMinAggregateOutputType | null;
@@ -95,16 +102,20 @@ export type UserWhereInput = {
     email?: Prisma.StringFilter<"User"> | string;
     password?: Prisma.StringFilter<"User"> | string;
     name?: Prisma.StringFilter<"User"> | string;
+    country?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     jobs?: Prisma.JobListRelationFilter;
+    workerProfile?: Prisma.XOR<Prisma.WorkerProfileNullableScalarRelationFilter, Prisma.WorkerProfileWhereInput> | null;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
+    country?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     jobs?: Prisma.JobOrderByRelationAggregateInput;
+    workerProfile?: Prisma.WorkerProfileOrderByWithRelationInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -114,14 +125,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     password?: Prisma.StringFilter<"User"> | string;
     name?: Prisma.StringFilter<"User"> | string;
+    country?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     jobs?: Prisma.JobListRelationFilter;
+    workerProfile?: Prisma.XOR<Prisma.WorkerProfileNullableScalarRelationFilter, Prisma.WorkerProfileWhereInput> | null;
 }, "id" | "email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
+    country?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     _count?: Prisma.UserCountOrderByAggregateInput;
     _max?: Prisma.UserMaxOrderByAggregateInput;
@@ -135,6 +149,7 @@ export type UserScalarWhereWithAggregatesInput = {
     email?: Prisma.StringWithAggregatesFilter<"User"> | string;
     password?: Prisma.StringWithAggregatesFilter<"User"> | string;
     name?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
 };
 export type UserCreateInput = {
@@ -142,38 +157,47 @@ export type UserCreateInput = {
     email: string;
     password: string;
     name: string;
+    country?: string | null;
     createdAt?: Date | string;
     jobs?: Prisma.JobCreateNestedManyWithoutPostedByInput;
+    workerProfile?: Prisma.WorkerProfileCreateNestedOneWithoutUserInput;
 };
 export type UserUncheckedCreateInput = {
     id?: string;
     email: string;
     password: string;
     name: string;
+    country?: string | null;
     createdAt?: Date | string;
     jobs?: Prisma.JobUncheckedCreateNestedManyWithoutPostedByInput;
+    workerProfile?: Prisma.WorkerProfileUncheckedCreateNestedOneWithoutUserInput;
 };
 export type UserUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     jobs?: Prisma.JobUpdateManyWithoutPostedByNestedInput;
+    workerProfile?: Prisma.WorkerProfileUpdateOneWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     jobs?: Prisma.JobUncheckedUpdateManyWithoutPostedByNestedInput;
+    workerProfile?: Prisma.WorkerProfileUncheckedUpdateOneWithoutUserNestedInput;
 };
 export type UserCreateManyInput = {
     id?: string;
     email: string;
     password: string;
     name: string;
+    country?: string | null;
     createdAt?: Date | string;
 };
 export type UserUpdateManyMutationInput = {
@@ -181,6 +205,7 @@ export type UserUpdateManyMutationInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type UserUncheckedUpdateManyInput = {
@@ -188,6 +213,7 @@ export type UserUncheckedUpdateManyInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type UserCountOrderByAggregateInput = {
@@ -195,6 +221,7 @@ export type UserCountOrderByAggregateInput = {
     email?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
+    country?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type UserMaxOrderByAggregateInput = {
@@ -202,6 +229,7 @@ export type UserMaxOrderByAggregateInput = {
     email?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
+    country?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type UserMinOrderByAggregateInput = {
@@ -209,6 +237,7 @@ export type UserMinOrderByAggregateInput = {
     email?: Prisma.SortOrder;
     password?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
+    country?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type UserScalarRelationFilter = {
@@ -217,6 +246,9 @@ export type UserScalarRelationFilter = {
 };
 export type StringFieldUpdateOperationsInput = {
     set?: string;
+};
+export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null;
 };
 export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
@@ -233,19 +265,35 @@ export type UserUpdateOneRequiredWithoutJobsNestedInput = {
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJobsInput, Prisma.UserUpdateWithoutJobsInput>, Prisma.UserUncheckedUpdateWithoutJobsInput>;
 };
+export type UserCreateNestedOneWithoutWorkerProfileInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkerProfileInput, Prisma.UserUncheckedCreateWithoutWorkerProfileInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkerProfileInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutWorkerProfileNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutWorkerProfileInput, Prisma.UserUncheckedCreateWithoutWorkerProfileInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkerProfileInput;
+    upsert?: Prisma.UserUpsertWithoutWorkerProfileInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkerProfileInput, Prisma.UserUpdateWithoutWorkerProfileInput>, Prisma.UserUncheckedUpdateWithoutWorkerProfileInput>;
+};
 export type UserCreateWithoutJobsInput = {
     id?: string;
     email: string;
     password: string;
     name: string;
+    country?: string | null;
     createdAt?: Date | string;
+    workerProfile?: Prisma.WorkerProfileCreateNestedOneWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutJobsInput = {
     id?: string;
     email: string;
     password: string;
     name: string;
+    country?: string | null;
     createdAt?: Date | string;
+    workerProfile?: Prisma.WorkerProfileUncheckedCreateNestedOneWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutJobsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -265,14 +313,67 @@ export type UserUpdateWithoutJobsInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    workerProfile?: Prisma.WorkerProfileUpdateOneWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutJobsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    workerProfile?: Prisma.WorkerProfileUncheckedUpdateOneWithoutUserNestedInput;
+};
+export type UserCreateWithoutWorkerProfileInput = {
+    id?: string;
+    email: string;
+    password: string;
+    name: string;
+    country?: string | null;
+    createdAt?: Date | string;
+    jobs?: Prisma.JobCreateNestedManyWithoutPostedByInput;
+};
+export type UserUncheckedCreateWithoutWorkerProfileInput = {
+    id?: string;
+    email: string;
+    password: string;
+    name: string;
+    country?: string | null;
+    createdAt?: Date | string;
+    jobs?: Prisma.JobUncheckedCreateNestedManyWithoutPostedByInput;
+};
+export type UserCreateOrConnectWithoutWorkerProfileInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkerProfileInput, Prisma.UserUncheckedCreateWithoutWorkerProfileInput>;
+};
+export type UserUpsertWithoutWorkerProfileInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutWorkerProfileInput, Prisma.UserUncheckedUpdateWithoutWorkerProfileInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutWorkerProfileInput, Prisma.UserUncheckedCreateWithoutWorkerProfileInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutWorkerProfileInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutWorkerProfileInput, Prisma.UserUncheckedUpdateWithoutWorkerProfileInput>;
+};
+export type UserUpdateWithoutWorkerProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    jobs?: Prisma.JobUpdateManyWithoutPostedByNestedInput;
+};
+export type UserUncheckedUpdateWithoutWorkerProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    jobs?: Prisma.JobUncheckedUpdateManyWithoutPostedByNestedInput;
 };
 export type UserCountOutputType = {
     jobs: number;
@@ -291,8 +392,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     email?: boolean;
     password?: boolean;
     name?: boolean;
+    country?: boolean;
     createdAt?: boolean;
     jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>;
+    workerProfile?: boolean | Prisma.User$workerProfileArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -300,6 +403,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     email?: boolean;
     password?: boolean;
     name?: boolean;
+    country?: boolean;
     createdAt?: boolean;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -307,6 +411,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     email?: boolean;
     password?: boolean;
     name?: boolean;
+    country?: boolean;
     createdAt?: boolean;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectScalar = {
@@ -314,11 +419,13 @@ export type UserSelectScalar = {
     email?: boolean;
     password?: boolean;
     name?: boolean;
+    country?: boolean;
     createdAt?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "createdAt", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "country" | "createdAt", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>;
+    workerProfile?: boolean | Prisma.User$workerProfileArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -327,12 +434,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: "User";
     objects: {
         jobs: Prisma.$JobPayload<ExtArgs>[];
+        workerProfile: Prisma.$WorkerProfilePayload<ExtArgs> | null;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
         email: string;
         password: string;
         name: string;
+        country: string | null;
         createdAt: Date;
     }, ExtArgs["result"]["user"]>;
     composites: {};
@@ -387,6 +496,7 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
     jobs<T extends Prisma.User$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    workerProfile<T extends Prisma.User$workerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workerProfileArgs<ExtArgs>>): Prisma.Prisma__WorkerProfileClient<runtime.Types.Result.GetResult<Prisma.$WorkerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -396,6 +506,7 @@ export interface UserFieldRefs {
     readonly email: Prisma.FieldRef<"User", 'String'>;
     readonly password: Prisma.FieldRef<"User", 'String'>;
     readonly name: Prisma.FieldRef<"User", 'String'>;
+    readonly country: Prisma.FieldRef<"User", 'String'>;
     readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
 }
 export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -506,6 +617,12 @@ export type User$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     take?: number;
     skip?: number;
     distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[];
+};
+export type User$workerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.WorkerProfileSelect<ExtArgs> | null;
+    omit?: Prisma.WorkerProfileOmit<ExtArgs> | null;
+    include?: Prisma.WorkerProfileInclude<ExtArgs> | null;
+    where?: Prisma.WorkerProfileWhereInput;
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

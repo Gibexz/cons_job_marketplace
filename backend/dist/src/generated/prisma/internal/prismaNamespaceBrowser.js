@@ -10,7 +10,8 @@ export const JsonNull = runtime.JsonNull;
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     User: 'User',
-    Job: 'Job'
+    Job: 'Job',
+    WorkerProfile: 'WorkerProfile'
 };
 export const TransactionIsolationLevel = {
     ReadUncommitted: 'ReadUncommitted',
@@ -23,14 +24,26 @@ export const UserScalarFieldEnum = {
     email: 'email',
     password: 'password',
     name: 'name',
+    country: 'country',
     createdAt: 'createdAt'
 };
 export const JobScalarFieldEnum = {
     id: 'id',
     title: 'title',
     description: 'description',
+    company: 'company',
     postedById: 'postedById',
     createdAt: 'createdAt'
+};
+export const WorkerProfileScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    skills: 'skills',
+    experience: 'experience',
+    available: 'available',
+    bio: 'bio',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const SortOrder = {
     asc: 'asc',
@@ -39,5 +52,9 @@ export const SortOrder = {
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
+};
+export const NullsOrder = {
+    first: 'first',
+    last: 'last'
 };
 //# sourceMappingURL=prismaNamespaceBrowser.js.map

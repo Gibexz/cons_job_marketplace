@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Job: 'Job'
+  Job: 'Job',
+  WorkerProfile: 'WorkerProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "job"
+    modelProps: "user" | "job" | "workerProfile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WorkerProfile: {
+      payload: Prisma.$WorkerProfilePayload<ExtArgs>
+      fields: Prisma.WorkerProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkerProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkerProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.WorkerProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkerProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        findMany: {
+          args: Prisma.WorkerProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[]
+        }
+        create: {
+          args: Prisma.WorkerProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        createMany: {
+          args: Prisma.WorkerProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkerProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.WorkerProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        update: {
+          args: Prisma.WorkerProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkerProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkerProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkerProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkerProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.WorkerProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkerProfile>
+        }
+        groupBy: {
+          args: Prisma.WorkerProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkerProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkerProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkerProfileCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -597,6 +672,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   name: 'name',
+  country: 'country',
   createdAt: 'createdAt'
 } as const
 
@@ -607,11 +683,26 @@ export const JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  company: 'company',
   postedById: 'postedById',
   createdAt: 'createdAt'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+export const WorkerProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  skills: 'skills',
+  experience: 'experience',
+  available: 'available',
+  bio: 'bio',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -628,6 +719,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -661,6 +760,27 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ExperienceLevel'
+ */
+export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'ExperienceLevel[]'
+ */
+export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -774,6 +894,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   job?: Prisma.JobOmit
+  workerProfile?: Prisma.WorkerProfileOmit
 }
 
 /* Types for Logging */

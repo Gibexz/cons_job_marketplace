@@ -8,6 +8,7 @@ export declare class JobsController {
         createdAt: Date;
         title: string;
         description: string;
+        company: string | null;
         postedById: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;

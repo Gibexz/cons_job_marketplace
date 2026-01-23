@@ -13,6 +13,7 @@ import { JobsModule } from './jobs/jobs.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { PrismaService } from './prisma/prisma.service.js';
+import { WorkerProfileModule } from './worker-profile/worker-profile.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,6 +24,7 @@ AppModule = __decorate([
             UsersModule,
             JobsModule,
             PrismaModule,
+            WorkerProfileModule,
         ],
         controllers: [AppController],
         providers: [AppService, PrismaService],

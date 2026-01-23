@@ -19,9 +19,12 @@ model User {
   email     String   @unique
   password  String
   name      String
+  country   String?
   createdAt DateTime @default(now())
+  
 
   jobs      Job[]
+  workerProfile WorkerProfile?
 }
 
 model Job {
@@ -32,4 +35,24 @@ model Job {
   postedById  String
   postedBy    User     @relation(fields: [postedById], references: [id])
   createdAt   DateTime @default(now())
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  PROFESSIONAL
+  EXPERT
+}
+
+model WorkerProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  skills      String[]
+  experience  ExperienceLevel
+  available   Boolean  @default(true)
+  bio         String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

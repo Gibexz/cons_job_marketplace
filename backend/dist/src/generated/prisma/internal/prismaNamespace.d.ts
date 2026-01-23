@@ -159,6 +159,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export declare const ModelName: {
     readonly User: "User";
     readonly Job: "Job";
+    readonly WorkerProfile: "WorkerProfile";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -171,7 +172,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "job";
+        modelProps: "user" | "job" | "workerProfile";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -323,6 +324,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        WorkerProfile: {
+            payload: Prisma.$WorkerProfilePayload<ExtArgs>;
+            fields: Prisma.WorkerProfileFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.WorkerProfileFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.WorkerProfileFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                findFirst: {
+                    args: Prisma.WorkerProfileFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.WorkerProfileFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                findMany: {
+                    args: Prisma.WorkerProfileFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[];
+                };
+                create: {
+                    args: Prisma.WorkerProfileCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                createMany: {
+                    args: Prisma.WorkerProfileCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.WorkerProfileCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[];
+                };
+                delete: {
+                    args: Prisma.WorkerProfileDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                update: {
+                    args: Prisma.WorkerProfileUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                deleteMany: {
+                    args: Prisma.WorkerProfileDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.WorkerProfileUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.WorkerProfileUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>[];
+                };
+                upsert: {
+                    args: Prisma.WorkerProfileUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkerProfilePayload>;
+                };
+                aggregate: {
+                    args: Prisma.WorkerProfileAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateWorkerProfile>;
+                };
+                groupBy: {
+                    args: Prisma.WorkerProfileGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.WorkerProfileGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.WorkerProfileCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.WorkerProfileCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -359,6 +434,7 @@ export declare const UserScalarFieldEnum: {
     readonly email: "email";
     readonly password: "password";
     readonly name: "name";
+    readonly country: "country";
     readonly createdAt: "createdAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
@@ -366,10 +442,22 @@ export declare const JobScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
+    readonly company: "company";
     readonly postedById: "postedById";
     readonly createdAt: "createdAt";
 };
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
+export declare const WorkerProfileScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly skills: "skills";
+    readonly experience: "experience";
+    readonly available: "available";
+    readonly bio: "bio";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -380,10 +468,18 @@ export declare const QueryMode: {
     readonly insensitive: "insensitive";
 };
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
+export declare const NullsOrder: {
+    readonly first: "first";
+    readonly last: "last";
+};
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>;
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>;
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>;
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>;
+export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>;
+export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>;
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
 export type BatchPayload = {
@@ -412,6 +508,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
     user?: Prisma.UserOmit;
     job?: Prisma.JobOmit;
+    workerProfile?: Prisma.WorkerProfileOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {
