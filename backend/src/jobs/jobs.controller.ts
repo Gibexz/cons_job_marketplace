@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
-import { JwtAuthGuard } from '../auth/jwt.gaurd.js';
+import { JwtAuthGuard } from '../auth/jwt.guard.js';
 
 @Controller('jobs')
 export class JobsController {
