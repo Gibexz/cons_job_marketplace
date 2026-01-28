@@ -115,6 +115,21 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     _min?: Prisma.NestedBoolFilter<$PrismaModel>;
     _max?: Prisma.NestedBoolFilter<$PrismaModel>;
 };
+export type EnumJobWorkerStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobWorkerStatus | Prisma.EnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    in?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel> | $Enums.JobWorkerStatus;
+};
+export type EnumJobWorkerStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobWorkerStatus | Prisma.EnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    in?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumJobWorkerStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobWorkerStatus;
+    _count?: Prisma.NestedIntFilter<$PrismaModel>;
+    _min?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel>;
+    _max?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel>;
+};
 export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | Prisma.StringFieldRefInput<$PrismaModel>;
     in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>;
@@ -241,4 +256,19 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     _count?: Prisma.NestedIntFilter<$PrismaModel>;
     _min?: Prisma.NestedBoolFilter<$PrismaModel>;
     _max?: Prisma.NestedBoolFilter<$PrismaModel>;
+};
+export type NestedEnumJobWorkerStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobWorkerStatus | Prisma.EnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    in?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel> | $Enums.JobWorkerStatus;
+};
+export type NestedEnumJobWorkerStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JobWorkerStatus | Prisma.EnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    in?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.JobWorkerStatus[] | Prisma.ListEnumJobWorkerStatusFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumJobWorkerStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobWorkerStatus;
+    _count?: Prisma.NestedIntFilter<$PrismaModel>;
+    _min?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel>;
+    _max?: Prisma.NestedEnumJobWorkerStatusFilter<$PrismaModel>;
 };

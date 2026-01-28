@@ -17,3 +17,13 @@ export const ExperienceLevel = {
 } as const
 
 export type ExperienceLevel = (typeof ExperienceLevel)[keyof typeof ExperienceLevel]
+
+
+export const JobWorkerStatus = {
+  INVITED: 'INVITED',
+  APPLIED: 'APPLIED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type JobWorkerStatus = (typeof JobWorkerStatus)[keyof typeof JobWorkerStatus]

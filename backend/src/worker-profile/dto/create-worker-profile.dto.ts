@@ -1,6 +1,6 @@
 import { IsArray, IsBoolean, IsEnum, IsOptional, IsString } from "class-validator";
 
-import { ExperienceLevel } from '../../generated/prisma/enums.js';
+import { ExperienceLevel } from '../../generated/prisma/client.js';
 
 export class CreateWorkerProfileDto {
     @IsArray()

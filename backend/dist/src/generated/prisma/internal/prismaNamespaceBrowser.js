@@ -11,7 +11,8 @@ export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     User: 'User',
     Job: 'Job',
-    WorkerProfile: 'WorkerProfile'
+    WorkerProfile: 'WorkerProfile',
+    JobWorker: 'JobWorker'
 };
 export const TransactionIsolationLevel = {
     ReadUncommitted: 'ReadUncommitted',
@@ -44,6 +45,13 @@ export const WorkerProfileScalarFieldEnum = {
     bio: 'bio',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const JobWorkerScalarFieldEnum = {
+    id: 'id',
+    jobId: 'jobId',
+    workerId: 'workerId',
+    status: 'status',
+    createdAt: 'createdAt'
 };
 export const SortOrder = {
     asc: 'asc',

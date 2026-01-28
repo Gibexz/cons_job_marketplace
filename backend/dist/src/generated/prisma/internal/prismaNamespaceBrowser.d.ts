@@ -14,6 +14,7 @@ export declare const ModelName: {
     readonly User: "User";
     readonly Job: "Job";
     readonly WorkerProfile: "WorkerProfile";
+    readonly JobWorker: "JobWorker";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -52,6 +53,14 @@ export declare const WorkerProfileScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum];
+export declare const JobWorkerScalarFieldEnum: {
+    readonly id: "id";
+    readonly jobId: "jobId";
+    readonly workerId: "workerId";
+    readonly status: "status";
+    readonly createdAt: "createdAt";
+};
+export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

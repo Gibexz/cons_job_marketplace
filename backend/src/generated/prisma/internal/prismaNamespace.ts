@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Job: 'Job',
-  WorkerProfile: 'WorkerProfile'
+  WorkerProfile: 'WorkerProfile',
+  JobWorker: 'JobWorker'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "job" | "workerProfile"
+    modelProps: "user" | "job" | "workerProfile" | "jobWorker"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobWorker: {
+      payload: Prisma.$JobWorkerPayload<ExtArgs>
+      fields: Prisma.JobWorkerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobWorkerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobWorkerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        findFirst: {
+          args: Prisma.JobWorkerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobWorkerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        findMany: {
+          args: Prisma.JobWorkerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[]
+        }
+        create: {
+          args: Prisma.JobWorkerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        createMany: {
+          args: Prisma.JobWorkerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobWorkerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[]
+        }
+        delete: {
+          args: Prisma.JobWorkerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        update: {
+          args: Prisma.JobWorkerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobWorkerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobWorkerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobWorkerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobWorkerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>
+        }
+        aggregate: {
+          args: Prisma.JobWorkerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobWorker>
+        }
+        groupBy: {
+          args: Prisma.JobWorkerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobWorkerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobWorkerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobWorkerCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -703,6 +778,17 @@ export const WorkerProfileScalarFieldEnum = {
 } as const
 
 export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum]
+
+
+export const JobWorkerScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  workerId: 'workerId',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -781,6 +867,20 @@ export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'JobWorkerStatus'
+ */
+export type EnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JobWorkerStatus[]'
+ */
+export type ListEnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus[]'>
     
 
 
@@ -895,6 +995,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   job?: Prisma.JobOmit
   workerProfile?: Prisma.WorkerProfileOmit
+  jobWorker?: Prisma.JobWorkerOmit
 }
 
 /* Types for Logging */

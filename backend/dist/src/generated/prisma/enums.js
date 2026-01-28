@@ -4,4 +4,10 @@ export const ExperienceLevel = {
     PROFESSIONAL: 'PROFESSIONAL',
     EXPERT: 'EXPERT'
 };
+export const JobWorkerStatus = {
+    INVITED: 'INVITED',
+    APPLIED: 'APPLIED',
+    ACCEPTED: 'ACCEPTED',
+    REJECTED: 'REJECTED'
+};
 //# sourceMappingURL=enums.js.map
