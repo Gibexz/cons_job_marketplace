@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { apiFetch } from '@/lib/api';
 
 export default function CreateJobPage() {
-  const [job, setJob] = useState({ title: '', description: '' });
+  const [job, setJob] = useState({ title: '', description: '', company: '' });
 
   async function submit() {
     await apiFetch('/jobs', {
@@ -17,8 +17,9 @@ export default function CreateJobPage() {
     <div>
       <h1>Create Job</h1>
       <input placeholder="Title" onChange={e => setJob({ ...job, title: e.target.value })} />
+      <input placeholder="Company" onChange={e => setJob({ ...job, company: e.target.value })} />
       <textarea placeholder="Description" onChange={e => setJob({ ...job, description: e.target.value })} />
-      <button onClick={submit}>Create</button>
+      <div><button onClick={submit}>Create</button></div>
     </div>
   );
 }

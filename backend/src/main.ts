@@ -25,7 +25,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Add this line 👇
+  // TO enable CORS for your Next.js frontend
   app.enableCors({
     origin: 'http://localhost:3000', // Your Next.js URL
     credentials: true,
