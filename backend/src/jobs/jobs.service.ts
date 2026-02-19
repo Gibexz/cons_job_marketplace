@@ -14,4 +14,10 @@ export class JobsService {
       },
     });
   }
+  getJobsByUser(userId: string) {
+    return this.prisma.job.findMany({
+      where: { postedById: userId },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
 }

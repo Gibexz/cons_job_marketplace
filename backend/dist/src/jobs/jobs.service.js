@@ -23,6 +23,12 @@ let JobsService = class JobsService {
             },
         });
     }
+    getJobsByUser(userId) {
+        return this.prisma.job.findMany({
+            where: { postedById: userId },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
 };
 JobsService = __decorate([
     Injectable(),
