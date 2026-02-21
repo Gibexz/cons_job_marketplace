@@ -29,6 +29,35 @@ let JobsService = class JobsService {
             orderBy: { createdAt: 'desc' },
         });
     }
+    async getJobById(id) {
+        return this.prisma.job.findUnique({
+            where: { id },
+            include: {
+                postedBy: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
+                workers: {
+                    include: {
+                        worker: {
+                            include: {
+                                user: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        email: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    }
 };
 JobsService = __decorate([
     Injectable(),

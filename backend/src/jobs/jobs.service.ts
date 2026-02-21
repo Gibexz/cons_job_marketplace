@@ -20,4 +20,36 @@ export class JobsService {
       orderBy: { createdAt: 'desc' },
     });
   }
+
+    async getJobById(id: string) {
+    return this.prisma.job.findUnique({
+      where: { id },
+      include: {
+        postedBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            // Exclude password!
+          },
+        },
+        
+        workers: {
+          include: {
+            worker: {
+              include: {
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
 }

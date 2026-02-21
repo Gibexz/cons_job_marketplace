@@ -15,7 +15,7 @@ export default function JobsPage() {
 
   async function loadJobs() {
     try {
-      const data = await apiFetch("/jobs");
+      const data = await apiFetch("/jobs/my");
       setJobs(data);
     } catch (err: any) {
       setError(err.message);

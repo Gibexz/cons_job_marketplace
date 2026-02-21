@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
@@ -24,6 +24,13 @@ let JobsController = class JobsController {
     }
     getMyJobs(req) {
         return this.jobsService.getJobsByUser(req.user.sub);
+    }
+    async getJobById(id) {
+        const job = await this.jobsService.getJobById(id);
+        if (!job) {
+            throw new NotFoundException('Job not found');
+        }
+        return job;
     }
 };
 __decorate([
@@ -43,6 +50,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "getMyJobs", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
+    Get(':id'),
+    __param(0, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], JobsController.prototype, "getJobById", null);
 JobsController = __decorate([
     Controller('jobs'),
     __metadata("design:paramtypes", [JobsService])
