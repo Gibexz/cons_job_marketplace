@@ -21,7 +21,7 @@ export class JobsService {
     });
   }
 
-    async getJobById(id: string) {
+  async getJobById(id: string) {
     return this.prisma.job.findUnique({
       where: { id },
       include: {
@@ -33,7 +33,7 @@ export class JobsService {
             // Exclude password!
           },
         },
-        
+
         workers: {
           include: {
             worker: {
@@ -49,6 +49,23 @@ export class JobsService {
             },
           },
         },
+      },
+    });
+  }
+
+  async getJobsForMap() {
+    return this.prisma.job.findMany({
+      where: {
+        lat: { not: null },
+        lng: { not: null },
+      },
+      select: {
+        id: true,
+        title: true,
+        lat: true,
+        lng: true,
+        skills: true,
+        active: true,
       },
     });
   }

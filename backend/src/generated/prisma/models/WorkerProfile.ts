@@ -20,8 +20,20 @@ export type WorkerProfileModel = runtime.Types.Result.DefaultSelection<Prisma.$W
 
 export type AggregateWorkerProfile = {
   _count: WorkerProfileCountAggregateOutputType | null
+  _avg: WorkerProfileAvgAggregateOutputType | null
+  _sum: WorkerProfileSumAggregateOutputType | null
   _min: WorkerProfileMinAggregateOutputType | null
   _max: WorkerProfileMaxAggregateOutputType | null
+}
+
+export type WorkerProfileAvgAggregateOutputType = {
+  lat: number | null
+  lng: number | null
+}
+
+export type WorkerProfileSumAggregateOutputType = {
+  lat: number | null
+  lng: number | null
 }
 
 export type WorkerProfileMinAggregateOutputType = {
@@ -30,6 +42,8 @@ export type WorkerProfileMinAggregateOutputType = {
   experience: $Enums.ExperienceLevel | null
   available: boolean | null
   bio: string | null
+  lat: number | null
+  lng: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -40,6 +54,8 @@ export type WorkerProfileMaxAggregateOutputType = {
   experience: $Enums.ExperienceLevel | null
   available: boolean | null
   bio: string | null
+  lat: number | null
+  lng: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,11 +67,23 @@ export type WorkerProfileCountAggregateOutputType = {
   experience: number
   available: number
   bio: number
+  lat: number
+  lng: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
+
+export type WorkerProfileAvgAggregateInputType = {
+  lat?: true
+  lng?: true
+}
+
+export type WorkerProfileSumAggregateInputType = {
+  lat?: true
+  lng?: true
+}
 
 export type WorkerProfileMinAggregateInputType = {
   id?: true
@@ -63,6 +91,8 @@ export type WorkerProfileMinAggregateInputType = {
   experience?: true
   available?: true
   bio?: true
+  lat?: true
+  lng?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -73,6 +103,8 @@ export type WorkerProfileMaxAggregateInputType = {
   experience?: true
   available?: true
   bio?: true
+  lat?: true
+  lng?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -84,6 +116,8 @@ export type WorkerProfileCountAggregateInputType = {
   experience?: true
   available?: true
   bio?: true
+  lat?: true
+  lng?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -127,6 +161,18 @@ export type WorkerProfileAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: WorkerProfileAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: WorkerProfileSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: WorkerProfileMinAggregateInputType
@@ -157,6 +203,8 @@ export type WorkerProfileGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: WorkerProfileCountAggregateInputType | true
+  _avg?: WorkerProfileAvgAggregateInputType
+  _sum?: WorkerProfileSumAggregateInputType
   _min?: WorkerProfileMinAggregateInputType
   _max?: WorkerProfileMaxAggregateInputType
 }
@@ -168,9 +216,13 @@ export type WorkerProfileGroupByOutputType = {
   experience: $Enums.ExperienceLevel
   available: boolean
   bio: string | null
+  lat: number | null
+  lng: number | null
   createdAt: Date
   updatedAt: Date
   _count: WorkerProfileCountAggregateOutputType | null
+  _avg: WorkerProfileAvgAggregateOutputType | null
+  _sum: WorkerProfileSumAggregateOutputType | null
   _min: WorkerProfileMinAggregateOutputType | null
   _max: WorkerProfileMaxAggregateOutputType | null
 }
@@ -200,6 +252,8 @@ export type WorkerProfileWhereInput = {
   experience?: Prisma.EnumExperienceLevelFilter<"WorkerProfile"> | $Enums.ExperienceLevel
   available?: Prisma.BoolFilter<"WorkerProfile"> | boolean
   bio?: Prisma.StringNullableFilter<"WorkerProfile"> | string | null
+  lat?: Prisma.FloatNullableFilter<"WorkerProfile"> | number | null
+  lng?: Prisma.FloatNullableFilter<"WorkerProfile"> | number | null
   createdAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -213,6 +267,8 @@ export type WorkerProfileOrderByWithRelationInput = {
   experience?: Prisma.SortOrder
   available?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  lat?: Prisma.SortOrderInput | Prisma.SortOrder
+  lng?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -229,6 +285,8 @@ export type WorkerProfileWhereUniqueInput = Prisma.AtLeast<{
   experience?: Prisma.EnumExperienceLevelFilter<"WorkerProfile"> | $Enums.ExperienceLevel
   available?: Prisma.BoolFilter<"WorkerProfile"> | boolean
   bio?: Prisma.StringNullableFilter<"WorkerProfile"> | string | null
+  lat?: Prisma.FloatNullableFilter<"WorkerProfile"> | number | null
+  lng?: Prisma.FloatNullableFilter<"WorkerProfile"> | number | null
   createdAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -242,11 +300,15 @@ export type WorkerProfileOrderByWithAggregationInput = {
   experience?: Prisma.SortOrder
   available?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  lat?: Prisma.SortOrderInput | Prisma.SortOrder
+  lng?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.WorkerProfileCountOrderByAggregateInput
+  _avg?: Prisma.WorkerProfileAvgOrderByAggregateInput
   _max?: Prisma.WorkerProfileMaxOrderByAggregateInput
   _min?: Prisma.WorkerProfileMinOrderByAggregateInput
+  _sum?: Prisma.WorkerProfileSumOrderByAggregateInput
 }
 
 export type WorkerProfileScalarWhereWithAggregatesInput = {
@@ -259,6 +321,8 @@ export type WorkerProfileScalarWhereWithAggregatesInput = {
   experience?: Prisma.EnumExperienceLevelWithAggregatesFilter<"WorkerProfile"> | $Enums.ExperienceLevel
   available?: Prisma.BoolWithAggregatesFilter<"WorkerProfile"> | boolean
   bio?: Prisma.StringNullableWithAggregatesFilter<"WorkerProfile"> | string | null
+  lat?: Prisma.FloatNullableWithAggregatesFilter<"WorkerProfile"> | number | null
+  lng?: Prisma.FloatNullableWithAggregatesFilter<"WorkerProfile"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WorkerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WorkerProfile"> | Date | string
 }
@@ -269,6 +333,8 @@ export type WorkerProfileCreateInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWorkerProfileInput
@@ -282,6 +348,8 @@ export type WorkerProfileUncheckedCreateInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobWorkerUncheckedCreateNestedManyWithoutWorkerInput
@@ -293,6 +361,8 @@ export type WorkerProfileUpdateInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWorkerProfileNestedInput
@@ -306,6 +376,8 @@ export type WorkerProfileUncheckedUpdateInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobWorkerUncheckedUpdateManyWithoutWorkerNestedInput
@@ -318,6 +390,8 @@ export type WorkerProfileCreateManyInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -328,6 +402,8 @@ export type WorkerProfileUpdateManyMutationInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -339,6 +415,8 @@ export type WorkerProfileUncheckedUpdateManyInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -348,14 +426,6 @@ export type WorkerProfileNullableScalarRelationFilter = {
   isNot?: Prisma.WorkerProfileWhereInput | null
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type WorkerProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -363,8 +433,15 @@ export type WorkerProfileCountOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   available?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type WorkerProfileAvgOrderByAggregateInput = {
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
 }
 
 export type WorkerProfileMaxOrderByAggregateInput = {
@@ -373,6 +450,8 @@ export type WorkerProfileMaxOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   available?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -383,8 +462,15 @@ export type WorkerProfileMinOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   available?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type WorkerProfileSumOrderByAggregateInput = {
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
 }
 
 export type WorkerProfileScalarRelationFilter = {
@@ -437,10 +523,6 @@ export type EnumExperienceLevelFieldUpdateOperationsInput = {
   set?: $Enums.ExperienceLevel
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type WorkerProfileCreateNestedOneWithoutJobsInput = {
   create?: Prisma.XOR<Prisma.WorkerProfileCreateWithoutJobsInput, Prisma.WorkerProfileUncheckedCreateWithoutJobsInput>
   connectOrCreate?: Prisma.WorkerProfileCreateOrConnectWithoutJobsInput
@@ -461,6 +543,8 @@ export type WorkerProfileCreateWithoutUserInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobWorkerCreateNestedManyWithoutWorkerInput
@@ -472,6 +556,8 @@ export type WorkerProfileUncheckedCreateWithoutUserInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobWorkerUncheckedCreateNestedManyWithoutWorkerInput
@@ -499,6 +585,8 @@ export type WorkerProfileUpdateWithoutUserInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobWorkerUpdateManyWithoutWorkerNestedInput
@@ -510,6 +598,8 @@ export type WorkerProfileUncheckedUpdateWithoutUserInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobWorkerUncheckedUpdateManyWithoutWorkerNestedInput
@@ -521,6 +611,8 @@ export type WorkerProfileCreateWithoutJobsInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWorkerProfileInput
@@ -533,6 +625,8 @@ export type WorkerProfileUncheckedCreateWithoutJobsInput = {
   experience: $Enums.ExperienceLevel
   available?: boolean
   bio?: string | null
+  lat?: number | null
+  lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -559,6 +653,8 @@ export type WorkerProfileUpdateWithoutJobsInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWorkerProfileNestedInput
@@ -571,6 +667,8 @@ export type WorkerProfileUncheckedUpdateWithoutJobsInput = {
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -613,6 +711,8 @@ export type WorkerProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   experience?: boolean
   available?: boolean
   bio?: boolean
+  lat?: boolean
+  lng?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -627,6 +727,8 @@ export type WorkerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   experience?: boolean
   available?: boolean
   bio?: boolean
+  lat?: boolean
+  lng?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -639,6 +741,8 @@ export type WorkerProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   experience?: boolean
   available?: boolean
   bio?: boolean
+  lat?: boolean
+  lng?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -651,11 +755,13 @@ export type WorkerProfileSelectScalar = {
   experience?: boolean
   available?: boolean
   bio?: boolean
+  lat?: boolean
+  lng?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type WorkerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "skills" | "experience" | "available" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["workerProfile"]>
+export type WorkerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "skills" | "experience" | "available" | "bio" | "lat" | "lng" | "createdAt" | "updatedAt", ExtArgs["result"]["workerProfile"]>
 export type WorkerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.WorkerProfile$jobsArgs<ExtArgs>
@@ -681,6 +787,8 @@ export type $WorkerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
     experience: $Enums.ExperienceLevel
     available: boolean
     bio: string | null
+    lat: number | null
+    lng: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["workerProfile"]>
@@ -1114,6 +1222,8 @@ export interface WorkerProfileFieldRefs {
   readonly experience: Prisma.FieldRef<"WorkerProfile", 'ExperienceLevel'>
   readonly available: Prisma.FieldRef<"WorkerProfile", 'Boolean'>
   readonly bio: Prisma.FieldRef<"WorkerProfile", 'String'>
+  readonly lat: Prisma.FieldRef<"WorkerProfile", 'Float'>
+  readonly lng: Prisma.FieldRef<"WorkerProfile", 'Float'>
   readonly createdAt: Prisma.FieldRef<"WorkerProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"WorkerProfile", 'DateTime'>
 }

@@ -49,6 +49,10 @@ export const JobScalarFieldEnum = {
     description: 'description',
     company: 'company',
     postedById: 'postedById',
+    lat: 'lat',
+    lng: 'lng',
+    skills: 'skills',
+    active: 'active',
     createdAt: 'createdAt'
 };
 export const WorkerProfileScalarFieldEnum = {
@@ -58,6 +62,8 @@ export const WorkerProfileScalarFieldEnum = {
     experience: 'experience',
     available: 'available',
     bio: 'bio',
+    lat: 'lat',
+    lng: 'lng',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

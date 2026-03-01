@@ -58,6 +58,22 @@ let JobsService = class JobsService {
             },
         });
     }
+    async getJobsForMap() {
+        return this.prisma.job.findMany({
+            where: {
+                lat: { not: null },
+                lng: { not: null },
+            },
+            select: {
+                id: true,
+                title: true,
+                lat: true,
+                lng: true,
+                skills: true,
+                active: true,
+            },
+        });
+    }
 };
 JobsService = __decorate([
     Injectable(),

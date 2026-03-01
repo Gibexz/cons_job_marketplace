@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException, } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
@@ -31,6 +31,9 @@ let JobsController = class JobsController {
             throw new NotFoundException('Job not found');
         }
         return job;
+    }
+    getJobsForMap() {
+        return this.jobsService.getJobsForMap();
     }
 };
 __decorate([
@@ -58,6 +61,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], JobsController.prototype, "getJobById", null);
+__decorate([
+    Get('map'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getJobsForMap", null);
 JobsController = __decorate([
     Controller('jobs'),
     __metadata("design:paramtypes", [JobsService])

@@ -519,6 +519,10 @@ export declare const JobScalarFieldEnum: {
     readonly description: "description";
     readonly company: "company";
     readonly postedById: "postedById";
+    readonly lat: "lat";
+    readonly lng: "lng";
+    readonly skills: "skills";
+    readonly active: "active";
     readonly createdAt: "createdAt";
 };
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -529,6 +533,8 @@ export declare const WorkerProfileScalarFieldEnum: {
     readonly experience: "experience";
     readonly available: "available";
     readonly bio: "bio";
+    readonly lat: "lat";
+    readonly lng: "lng";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
@@ -560,9 +566,11 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>;
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>;
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>;
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
 export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>;
 export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>;
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
 export type EnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus'>;
 export type ListEnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus[]'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;

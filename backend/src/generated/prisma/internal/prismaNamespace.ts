@@ -760,6 +760,10 @@ export const JobScalarFieldEnum = {
   description: 'description',
   company: 'company',
   postedById: 'postedById',
+  lat: 'lat',
+  lng: 'lng',
+  skills: 'skills',
+  active: 'active',
   createdAt: 'createdAt'
 } as const
 
@@ -773,6 +777,8 @@ export const WorkerProfileScalarFieldEnum = {
   experience: 'experience',
   available: 'available',
   bio: 'bio',
+  lat: 'lat',
+  lng: 'lng',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -850,6 +856,27 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'ExperienceLevel'
  */
 export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>
@@ -860,13 +887,6 @@ export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'ExperienceLevel[]'
  */
 export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

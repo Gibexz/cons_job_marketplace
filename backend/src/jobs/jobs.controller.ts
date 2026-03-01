@@ -1,4 +1,13 @@
-import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Req,
+  Get,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
@@ -13,7 +22,6 @@ export class JobsController {
   createJob(@Body() dto: CreateJobDto, @Req() req) {
     return this.jobsService.createJob(dto, req.user.sub);
   }
-
 
   // New endpoint to get jobs for the authenticated user
   @UseGuards(JwtAuthGuard)
@@ -31,5 +39,10 @@ export class JobsController {
       throw new NotFoundException('Job not found');
     }
     return job;
+  }
+
+  @Get('map')
+  getJobsForMap() {
+    return this.jobsService.getJobsForMap();
   }
 }

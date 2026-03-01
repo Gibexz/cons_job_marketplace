@@ -39,6 +39,10 @@ export declare const JobScalarFieldEnum: {
     readonly description: "description";
     readonly company: "company";
     readonly postedById: "postedById";
+    readonly lat: "lat";
+    readonly lng: "lng";
+    readonly skills: "skills";
+    readonly active: "active";
     readonly createdAt: "createdAt";
 };
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -49,6 +53,8 @@ export declare const WorkerProfileScalarFieldEnum: {
     readonly experience: "experience";
     readonly available: "available";
     readonly bio: "bio";
+    readonly lat: "lat";
+    readonly lng: "lng";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };

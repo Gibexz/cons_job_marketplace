@@ -8,6 +8,10 @@ export declare class JobsService {
         title: string;
         description: string;
         company: string | null;
+        lat: number | null;
+        lng: number | null;
+        skills: string[];
+        active: boolean;
         postedById: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
@@ -18,6 +22,10 @@ export declare class JobsService {
         title: string;
         description: string;
         company: string | null;
+        lat: number | null;
+        lng: number | null;
+        skills: string[];
+        active: boolean;
         postedById: string;
     }[]>;
     getJobById(id: string): Promise<({
@@ -36,8 +44,10 @@ export declare class JobsService {
             } & {
                 id: string;
                 createdAt: Date;
-                userId: string;
+                lat: number | null;
+                lng: number | null;
                 skills: string[];
+                userId: string;
                 experience: import("../generated/prisma/enums.js").ExperienceLevel;
                 available: boolean;
                 bio: string | null;
@@ -56,6 +66,18 @@ export declare class JobsService {
         title: string;
         description: string;
         company: string | null;
+        lat: number | null;
+        lng: number | null;
+        skills: string[];
+        active: boolean;
         postedById: string;
     }) | null>;
+    getJobsForMap(): Promise<{
+        id: string;
+        title: string;
+        lat: number | null;
+        lng: number | null;
+        skills: string[];
+        active: boolean;
+    }[]>;
 }
