@@ -36,4 +36,10 @@ export class WorkerProfileController {
   getAvailableWorkers() {
     return this.service.getAllAvailableWorkers();
   }
+
+  //view workers for map
+  @Get('map')
+  getWorkersForMap() {
+    return this.service.getWorkersForMap();
+  }
 }

@@ -40,7 +40,7 @@ export class JobsController {
     }
     return job;
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('map')
   getJobsForMap() {
     return this.jobsService.getJobsForMap();

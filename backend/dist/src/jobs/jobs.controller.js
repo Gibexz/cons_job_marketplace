@@ -62,6 +62,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], JobsController.prototype, "getJobById", null);
 __decorate([
+    UseGuards(JwtAuthGuard),
     Get('map'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

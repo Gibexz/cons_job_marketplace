@@ -41,4 +41,27 @@ export class WorkerProfileService {
       include: { user: true },
     });
   }
+
+  getWorkersForMap() {
+    return this.prisma.workerProfile.findMany({
+      where: {
+        lat: { not: null },
+        lng: { not: null },
+        available: true,
+      },
+      select: {
+        id: true,
+        lat: true,
+        lng: true,
+        skills: true,
+        experience: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+  }
 }

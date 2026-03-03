@@ -44,9 +44,4 @@ export class JobWorkerController {
   getTeam(@Param('jobId') jobId: string) {
     return this.service.getJobTeam(jobId);
   }
-  //view workers for map
-  @Get('map')
-  getWorkersForMap() {
-    return this.service.getWorkersForMap();
-  }
 }
