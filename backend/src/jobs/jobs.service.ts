@@ -10,6 +10,10 @@ export class JobsService {
       data: {
         title: data.title,
         description: data.description,
+        skills: data.skills,
+        lat: data.lat,
+        lng: data.lng,
+        company: data.company,
         postedById: userId,
       },
     });

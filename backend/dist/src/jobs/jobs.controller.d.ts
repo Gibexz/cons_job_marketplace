@@ -5,7 +5,6 @@ export declare class JobsController {
     constructor(jobsService: JobsService);
     createJob(dto: CreateJobDto, req: any): import("../generated/prisma/models.js").Prisma__JobClient<{
         id: string;
-        createdAt: Date;
         title: string;
         description: string;
         company: string | null;
@@ -13,13 +12,13 @@ export declare class JobsController {
         lng: number | null;
         skills: string[];
         active: boolean;
+        createdAt: Date;
         postedById: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
     getMyJobs(req: any): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<{
         id: string;
-        createdAt: Date;
         title: string;
         description: string;
         company: string | null;
@@ -27,27 +26,28 @@ export declare class JobsController {
         lng: number | null;
         skills: string[];
         active: boolean;
+        createdAt: Date;
         postedById: string;
     }[]>;
     getJobById(id: string): Promise<{
         postedBy: {
             id: string;
-            email: string;
             name: string;
+            email: string;
         };
         workers: ({
             worker: {
                 user: {
                     id: string;
-                    email: string;
                     name: string;
+                    email: string;
                 };
             } & {
                 id: string;
-                createdAt: Date;
                 lat: number | null;
                 lng: number | null;
                 skills: string[];
+                createdAt: Date;
                 userId: string;
                 experience: import("../generated/prisma/enums.js").ExperienceLevel;
                 available: boolean;
@@ -57,13 +57,12 @@ export declare class JobsController {
         } & {
             id: string;
             createdAt: Date;
-            status: import("../generated/prisma/enums.js").JobWorkerStatus;
             jobId: string;
             workerId: string;
+            status: import("../generated/prisma/enums.js").JobWorkerStatus;
         })[];
     } & {
         id: string;
-        createdAt: Date;
         title: string;
         description: string;
         company: string | null;
@@ -71,6 +70,7 @@ export declare class JobsController {
         lng: number | null;
         skills: string[];
         active: boolean;
+        createdAt: Date;
         postedById: string;
     }>;
     getJobsForMap(): Promise<{
