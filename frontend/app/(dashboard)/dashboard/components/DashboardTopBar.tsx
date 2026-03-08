@@ -69,7 +69,7 @@ export default function DashboardTopBar({ onToggleSidebar, sidebarOpen }: Dashbo
   function handleLogout() {
     setDropdownOpen(false);
     // Add your auth context logout method here e.g. logout()
-    router.push('/login');
+    router.push('/');
   }
 
   return (

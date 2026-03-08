@@ -3,26 +3,26 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 
-import DashboardSidebar        from './components/DashboardSidebar';
-import DashboardTopBar         from './components/DashboardTopBar';
-import DashboardStatsCards     from './components/DashboardStatsCards';
-import DashboardMapPreview     from './components/DashboardMapPreview';
-import DashboardRecentActivity from './components/DashboardRecentActivity';
+import DashboardSidebar from './dashboard/components/DashboardSidebar';
+import DashboardTopBar  from './dashboard/components/DashboardTopBar';
 
-export default function DashboardPage() {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { token } = useAuth();
   const router    = useRouter();
 
-  // Mobile: hidden by default
-  // Desktop: open by default — resolved after mount to avoid hydration mismatch
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Auth guard — applies to ALL dashboard pages
   useEffect(() => {
     if (!token) router.push('/login');
   }, [token]);
 
+  // Auto-open sidebar on desktop, closed on mobile
   useEffect(() => {
-    // Open automatically on desktop, stay closed on mobile
     const mq = window.matchMedia('(min-width: 768px)');
     setSidebarOpen(mq.matches);
 
@@ -34,17 +34,13 @@ export default function DashboardPage() {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-100 font-sans">
 
-      {/* Sidebar */}
+      {/* ── SIDEBAR — never unmounts ── */}
       <DashboardSidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen((prev) => !prev)}
       />
 
-      {/*
-        Mobile backdrop.
-        Only shown on mobile when sidebar is open.
-        Tapping it closes the sidebar.
-      */}
+      {/* Mobile backdrop */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-20 bg-black/40 backdrop-blur-sm md:hidden"
@@ -53,32 +49,25 @@ export default function DashboardPage() {
         />
       )}
 
-      {/* Main content — expands naturally when sidebar collapses on desktop */}
+      {/* ── MAIN COLUMN ── */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
 
+        {/* ── TOPBAR — never unmounts ── */}
         <DashboardTopBar
           sidebarOpen={sidebarOpen}
           onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
         />
 
+        {/*
+          ── PAGE CONTENT SLOT ──
+          Each child page renders here. Only this area changes on navigation.
+        */}
         <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
           <div className="mx-auto max-w-6xl space-y-6">
-
-            <div>
-              <h1 className="text-xl font-black text-gray-900 sm:text-2xl">
-                Dashboard
-              </h1>
-              <p className="text-sm text-gray-500">
-                Welcome back — here's what's happening today.
-              </p>
-            </div>
-
-            <DashboardStatsCards />
-            <DashboardMapPreview />
-            <DashboardRecentActivity />
-
+            {children}
           </div>
         </main>
+
       </div>
     </div>
   );
