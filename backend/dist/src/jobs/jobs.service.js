@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 let JobsService = class JobsService {
     prisma;
@@ -77,6 +77,15 @@ let JobsService = class JobsService {
                 active: true,
             },
         });
+    }
+    async deleteJob(id, userId) {
+        const job = await this.prisma.job.findUnique({ where: { id } });
+        if (!job)
+            throw new NotFoundException('Job not found');
+        if (job.postedById !== userId) {
+            throw new ForbiddenException('You do not own this job');
+        }
+        return this.prisma.job.delete({ where: { id } });
     }
 };
 JobsService = __decorate([

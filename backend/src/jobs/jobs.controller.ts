@@ -7,6 +7,9 @@ import {
   Get,
   Param,
   NotFoundException,
+  Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
@@ -40,9 +43,22 @@ export class JobsController {
     }
     return job;
   }
+
   @UseGuards(JwtAuthGuard)
   @Get('map')
   getJobsForMap() {
     return this.jobsService.getJobsForMap();
   }
+  
+  
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  deleteJob(@Param('id') id: string, @Req() req) {
+  // API: DELETE /jobs/:id
+  // Passes userId so the service can verify ownership before deleting
+  return this.jobsService.deleteJob(id, req.user.sub);
 }
+}
+
+

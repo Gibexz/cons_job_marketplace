@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,
+  NotFoundException,
+  ForbiddenException,
+ } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
@@ -73,4 +76,18 @@ export class JobsService {
       },
     });
   }
+
+  async deleteJob(id: string, userId: string) {
+  // Verify the job belongs to the requesting user before deleting
+    const job = await this.prisma.job.findUnique({ where: { id } });
+
+    if (!job) throw new NotFoundException('Job not found');
+
+    if (job.postedById !== userId) {
+      throw new ForbiddenException('You do not own this job');
+  }
+
+  return this.prisma.job.delete({ where: { id } });
+}
+
 }

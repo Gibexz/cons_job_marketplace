@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException, } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException, Delete, HttpCode, HttpStatus, } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
@@ -34,6 +34,9 @@ let JobsController = class JobsController {
     }
     getJobsForMap() {
         return this.jobsService.getJobsForMap();
+    }
+    deleteJob(id, req) {
+        return this.jobsService.deleteJob(id, req.user.sub);
     }
 };
 __decorate([
@@ -68,6 +71,16 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "getJobsForMap", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
+    Delete(':id'),
+    HttpCode(HttpStatus.NO_CONTENT),
+    __param(0, Param('id')),
+    __param(1, Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "deleteJob", null);
 JobsController = __decorate([
     Controller('jobs'),
     __metadata("design:paramtypes", [JobsService])
