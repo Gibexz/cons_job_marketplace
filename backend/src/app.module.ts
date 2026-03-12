@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { PrismaService } from './prisma/prisma.service.js';
 import { WorkerProfileModule } from './worker-profile/worker-profile.module.js';
 import { JobWorkerModule } from './job-worker/job-worker.module.js';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JobWorkerModule } from './job-worker/job-worker.module.js';
     PrismaModule,
     WorkerProfileModule,
     JobWorkerModule,
+    CompanyModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

@@ -25,13 +25,15 @@ model User {
 
   jobs      Job[]
   workerProfile WorkerProfile?
+  company   Company[]
 }
 
 model Job {
   id          String   @id @default(uuid())
   title       String
   description String
-  company     String? @unique
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
   postedById  String
   postedBy    User     @relation(fields: [postedById], references: [id])
   lat         Float?
@@ -88,4 +90,20 @@ model  JobWorker {
   createdAt DateTime @default(now())
 
   @@unique([jobId, workerId])
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String
+  logo      String?
+  address   String?
+  rating    Float    @default(0)
+
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+
+  jobs      Job[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
