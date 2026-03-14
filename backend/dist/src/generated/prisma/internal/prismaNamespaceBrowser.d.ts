@@ -15,6 +15,7 @@ export declare const ModelName: {
     readonly Job: "Job";
     readonly WorkerProfile: "WorkerProfile";
     readonly JobWorker: "JobWorker";
+    readonly Company: "Company";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -37,7 +38,7 @@ export declare const JobScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
-    readonly company: "company";
+    readonly companyId: "companyId";
     readonly postedById: "postedById";
     readonly lat: "lat";
     readonly lng: "lng";
@@ -67,6 +68,17 @@ export declare const JobWorkerScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum];
+export declare const CompanyScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly logo: "logo";
+    readonly address: "address";
+    readonly rating: "rating";
+    readonly ownerId: "ownerId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

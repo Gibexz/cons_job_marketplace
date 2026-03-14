@@ -12,7 +12,8 @@ export const ModelName = {
     User: 'User',
     Job: 'Job',
     WorkerProfile: 'WorkerProfile',
-    JobWorker: 'JobWorker'
+    JobWorker: 'JobWorker',
+    Company: 'Company'
 };
 export const TransactionIsolationLevel = {
     ReadUncommitted: 'ReadUncommitted',
@@ -32,7 +33,7 @@ export const JobScalarFieldEnum = {
     id: 'id',
     title: 'title',
     description: 'description',
-    company: 'company',
+    companyId: 'companyId',
     postedById: 'postedById',
     lat: 'lat',
     lng: 'lng',
@@ -58,6 +59,16 @@ export const JobWorkerScalarFieldEnum = {
     workerId: 'workerId',
     status: 'status',
     createdAt: 'createdAt'
+};
+export const CompanyScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    logo: 'logo',
+    address: 'address',
+    rating: 'rating',
+    ownerId: 'ownerId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const SortOrder = {
     asc: 'asc',

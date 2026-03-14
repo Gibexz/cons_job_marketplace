@@ -161,6 +161,7 @@ export declare const ModelName: {
     readonly Job: "Job";
     readonly WorkerProfile: "WorkerProfile";
     readonly JobWorker: "JobWorker";
+    readonly Company: "Company";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -173,7 +174,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "job" | "workerProfile" | "jobWorker";
+        modelProps: "user" | "job" | "workerProfile" | "jobWorker" | "company";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -473,6 +474,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        Company: {
+            payload: Prisma.$CompanyPayload<ExtArgs>;
+            fields: Prisma.CompanyFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.CompanyFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.CompanyFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                findFirst: {
+                    args: Prisma.CompanyFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.CompanyFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                findMany: {
+                    args: Prisma.CompanyFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[];
+                };
+                create: {
+                    args: Prisma.CompanyCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                createMany: {
+                    args: Prisma.CompanyCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.CompanyCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[];
+                };
+                delete: {
+                    args: Prisma.CompanyDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                update: {
+                    args: Prisma.CompanyUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.CompanyDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.CompanyUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.CompanyUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>[];
+                };
+                upsert: {
+                    args: Prisma.CompanyUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyPayload>;
+                };
+                aggregate: {
+                    args: Prisma.CompanyAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateCompany>;
+                };
+                groupBy: {
+                    args: Prisma.CompanyGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.CompanyGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.CompanyCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.CompanyCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -517,7 +592,7 @@ export declare const JobScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
     readonly description: "description";
-    readonly company: "company";
+    readonly companyId: "companyId";
     readonly postedById: "postedById";
     readonly lat: "lat";
     readonly lng: "lng";
@@ -547,6 +622,17 @@ export declare const JobWorkerScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum];
+export declare const CompanyScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly logo: "logo";
+    readonly address: "address";
+    readonly rating: "rating";
+    readonly ownerId: "ownerId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -603,6 +689,7 @@ export type GlobalOmitConfig = {
     job?: Prisma.JobOmit;
     workerProfile?: Prisma.WorkerProfileOmit;
     jobWorker?: Prisma.JobWorkerOmit;
+    company?: Prisma.CompanyOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

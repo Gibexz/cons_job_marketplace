@@ -6,3 +6,4 @@ export type User = Prisma.UserModel;
 export type Job = Prisma.JobModel;
 export type WorkerProfile = Prisma.WorkerProfileModel;
 export type JobWorker = Prisma.JobWorkerModel;
+export type Company = Prisma.CompanyModel;

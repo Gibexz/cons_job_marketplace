@@ -22,7 +22,7 @@ let JobsService = class JobsService {
                 skills: data.skills,
                 lat: data.lat,
                 lng: data.lng,
-                company: data.company,
+                companyId: data.company,
                 postedById: userId,
             },
         });
