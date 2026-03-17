@@ -1,8 +1,20 @@
 import { PrismaService } from '../prisma/prisma.service.js';
+import { CreateJobDto } from './dto/create-job.dto.js';
 export declare class JobsService {
     private prisma;
     constructor(prisma: PrismaService);
-    createJob(data: any, userId: string): import("../generated/prisma/models.js").Prisma__JobClient<{
+    createJob(dto: CreateJobDto, userId: string): Promise<{
+        company: {
+            id: string;
+            name: string;
+            logo: string | null;
+        };
+        postedBy: {
+            id: string;
+            name: string;
+            email: string;
+        };
+    } & {
         id: string;
         title: string;
         description: string;
@@ -13,10 +25,14 @@ export declare class JobsService {
         createdAt: Date;
         companyId: string;
         postedById: string;
-    }, never, import("@prisma/client/runtime/client").DefaultArgs, {
-        omit: import("../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
-    getJobsByUser(userId: string): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<{
+    getJobsByUser(userId: string): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        company: {
+            id: string;
+            name: string;
+            logo: string | null;
+        };
+    } & {
         id: string;
         title: string;
         description: string;
@@ -27,8 +43,15 @@ export declare class JobsService {
         createdAt: Date;
         companyId: string;
         postedById: string;
-    }[]>;
+    })[]>;
     getJobById(id: string): Promise<({
+        company: {
+            id: string;
+            name: string;
+            logo: string | null;
+            address: string | null;
+            rating: number;
+        };
         postedBy: {
             id: string;
             name: string;
@@ -47,11 +70,11 @@ export declare class JobsService {
                 lng: number | null;
                 skills: string[];
                 createdAt: Date;
+                updatedAt: Date;
                 userId: string;
                 experience: import("../generated/prisma/enums.js").ExperienceLevel;
                 available: boolean;
                 bio: string | null;
-                updatedAt: Date;
             };
         } & {
             id: string;
@@ -79,6 +102,10 @@ export declare class JobsService {
         lng: number | null;
         skills: string[];
         active: boolean;
+        company: {
+            id: string;
+            name: string;
+        };
     }[]>;
     deleteJob(id: string, userId: string): Promise<{
         id: string;

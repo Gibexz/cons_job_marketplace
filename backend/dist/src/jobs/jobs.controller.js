@@ -25,22 +25,20 @@ let JobsController = class JobsController {
     getMyJobs(req) {
         return this.jobsService.getJobsByUser(req.user.sub);
     }
-    async getJobById(id) {
-        const job = await this.jobsService.getJobById(id);
-        if (!job) {
-            throw new NotFoundException('Job not found');
-        }
-        return job;
-    }
     getJobsForMap() {
         return this.jobsService.getJobsForMap();
+    }
+    async getJobById(id) {
+        const job = await this.jobsService.getJobById(id);
+        if (!job)
+            throw new NotFoundException('Job not found.');
+        return job;
     }
     deleteJob(id, req) {
         return this.jobsService.deleteJob(id, req.user.sub);
     }
 };
 __decorate([
-    UseGuards(JwtAuthGuard),
     Post(),
     __param(0, Body()),
     __param(1, Req()),
@@ -49,7 +47,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "createJob", null);
 __decorate([
-    UseGuards(JwtAuthGuard),
     Get('my'),
     __param(0, Req()),
     __metadata("design:type", Function),
@@ -57,7 +54,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "getMyJobs", null);
 __decorate([
-    UseGuards(JwtAuthGuard),
+    Get('map'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getJobsForMap", null);
+__decorate([
     Get(':id'),
     __param(0, Param('id')),
     __metadata("design:type", Function),
@@ -65,14 +67,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], JobsController.prototype, "getJobById", null);
 __decorate([
-    UseGuards(JwtAuthGuard),
-    Get('map'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], JobsController.prototype, "getJobsForMap", null);
-__decorate([
-    UseGuards(JwtAuthGuard),
     Delete(':id'),
     HttpCode(HttpStatus.NO_CONTENT),
     __param(0, Param('id')),
@@ -83,6 +77,7 @@ __decorate([
 ], JobsController.prototype, "deleteJob", null);
 JobsController = __decorate([
     Controller('jobs'),
+    UseGuards(JwtAuthGuard),
     __metadata("design:paramtypes", [JobsService])
 ], JobsController);
 export { JobsController };

@@ -14,16 +14,42 @@ let JobsService = class JobsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    createJob(data, userId) {
+    async createJob(dto, userId) {
+        const company = await this.prisma.company.findUnique({
+            where: { id: dto.companyId },
+        });
+        if (!company) {
+            throw new NotFoundException('Company not found.');
+        }
+        if (company.ownerId !== userId) {
+            throw new ForbiddenException('You do not own this company.');
+        }
         return this.prisma.job.create({
             data: {
-                title: data.title,
-                description: data.description,
-                skills: data.skills,
-                lat: data.lat,
-                lng: data.lng,
-                companyId: data.company,
+                title: dto.title,
+                description: dto.description,
+                skills: dto.skills,
+                active: dto.active,
+                lat: dto.lat,
+                lng: dto.lng,
+                companyId: dto.companyId,
                 postedById: userId,
+            },
+            include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        logo: true,
+                    },
+                },
+                postedBy: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
             },
         });
     }
@@ -31,12 +57,30 @@ let JobsService = class JobsService {
         return this.prisma.job.findMany({
             where: { postedById: userId },
             orderBy: { createdAt: 'desc' },
+            include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        logo: true,
+                    },
+                },
+            },
         });
     }
     async getJobById(id) {
         return this.prisma.job.findUnique({
             where: { id },
             include: {
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        logo: true,
+                        address: true,
+                        rating: true,
+                    },
+                },
                 postedBy: {
                     select: {
                         id: true,
@@ -67,6 +111,7 @@ let JobsService = class JobsService {
             where: {
                 lat: { not: null },
                 lng: { not: null },
+                active: true,
             },
             select: {
                 id: true,
@@ -75,15 +120,22 @@ let JobsService = class JobsService {
                 lng: true,
                 skills: true,
                 active: true,
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                    },
+                },
             },
         });
     }
     async deleteJob(id, userId) {
         const job = await this.prisma.job.findUnique({ where: { id } });
-        if (!job)
-            throw new NotFoundException('Job not found');
+        if (!job) {
+            throw new NotFoundException('Job not found.');
+        }
         if (job.postedById !== userId) {
-            throw new ForbiddenException('You do not own this job');
+            throw new ForbiddenException('You do not own this job.');
         }
         return this.prisma.job.delete({ where: { id } });
     }
