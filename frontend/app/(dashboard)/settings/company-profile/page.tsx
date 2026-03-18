@@ -125,11 +125,6 @@ export default function CompanyProfilePage() {
     setError("");
     setSuccess("");
 
-    if (!name.trim()) {
-      setError("Company name is required.");
-      return;
-    }
-
     if (!selectedCompany) return;
 
     setSaving(true);
@@ -138,7 +133,7 @@ export default function CompanyProfilePage() {
       const updated: Company = await apiFetch(`/company/${selectedCompany.id}`, {
         method: "PATCH",
         body: JSON.stringify({
-          name:    name.trim(),
+          // ✅ name removed — only these two fields are allowed
           logo:    logo.trim()    || undefined,
           address: address.trim() || undefined,
         }),

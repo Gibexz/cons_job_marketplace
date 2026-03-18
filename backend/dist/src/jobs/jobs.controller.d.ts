@@ -11,19 +11,19 @@ export declare class JobsController {
         };
         postedBy: {
             id: string;
-            name: string;
             email: string;
+            name: string;
         };
     } & {
         id: string;
+        createdAt: Date;
         title: string;
         description: string;
-        lat: number | null;
-        lng: number | null;
+        companyId: string;
         skills: string[];
         active: boolean;
-        createdAt: Date;
-        companyId: string;
+        lat: number | null;
+        lng: number | null;
         postedById: string;
     }>;
     getMyJobs(req: any): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
@@ -34,27 +34,27 @@ export declare class JobsController {
         };
     } & {
         id: string;
+        createdAt: Date;
         title: string;
         description: string;
-        lat: number | null;
-        lng: number | null;
+        companyId: string;
         skills: string[];
         active: boolean;
-        createdAt: Date;
-        companyId: string;
+        lat: number | null;
+        lng: number | null;
         postedById: string;
     })[]>;
     getJobsForMap(): Promise<{
-        id: string;
-        title: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
-        active: boolean;
         company: {
             id: string;
             name: string;
         };
+        id: string;
+        title: string;
+        skills: string[];
+        active: boolean;
+        lat: number | null;
+        lng: number | null;
     }[]>;
     getJobById(id: string): Promise<{
         company: {
@@ -66,22 +66,22 @@ export declare class JobsController {
         };
         postedBy: {
             id: string;
-            name: string;
             email: string;
+            name: string;
         };
         workers: ({
             worker: {
                 user: {
                     id: string;
-                    name: string;
                     email: string;
+                    name: string;
                 };
             } & {
                 id: string;
+                createdAt: Date;
+                skills: string[];
                 lat: number | null;
                 lng: number | null;
-                skills: string[];
-                createdAt: Date;
                 updatedAt: Date;
                 userId: string;
                 experience: import("../generated/prisma/enums.js").ExperienceLevel;
@@ -91,32 +91,32 @@ export declare class JobsController {
         } & {
             id: string;
             createdAt: Date;
+            status: import("../generated/prisma/enums.js").JobWorkerStatus;
             jobId: string;
             workerId: string;
-            status: import("../generated/prisma/enums.js").JobWorkerStatus;
         })[];
     } & {
         id: string;
+        createdAt: Date;
         title: string;
         description: string;
-        lat: number | null;
-        lng: number | null;
+        companyId: string;
         skills: string[];
         active: boolean;
-        createdAt: Date;
-        companyId: string;
+        lat: number | null;
+        lng: number | null;
         postedById: string;
     }>;
     deleteJob(id: string, req: any): Promise<{
         id: string;
+        createdAt: Date;
         title: string;
         description: string;
-        lat: number | null;
-        lng: number | null;
+        companyId: string;
         skills: string[];
         active: boolean;
-        createdAt: Date;
-        companyId: string;
+        lat: number | null;
+        lng: number | null;
         postedById: string;
     }>;
 }
