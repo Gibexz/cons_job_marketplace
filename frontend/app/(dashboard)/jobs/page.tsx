@@ -1,60 +1,60 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { apiFetch } from '@/lib/api';
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { apiFetch } from "@/lib/api";
 
 // ── TYPES ─────────────────────────────────────────────────────
 interface JobCompany {
-  id:    string;
-  name:  string;
+  id: string;
+  name: string;
   logo?: string;
 }
 
 interface Job {
-  id:          string;
-  title:       string;
+  id: string;
+  title: string;
   description: string;
-  company?:    JobCompany;  // ✅ object, not string
-  companyId?:  string;
-  lat?:        number;
-  lng?:        number;
-  skills:      string[];
-  active:      boolean;
-  createdAt:   string;
+  company?: JobCompany; // ✅ object, not string
+  companyId?: string;
+  lat?: number;
+  lng?: number;
+  skills: string[];
+  active: boolean;
+  createdAt: string;
 }
 
-function getStatus(job: Job): 'Active' | 'Inactive' {
-  return job.active ? 'Active' : 'Inactive';
+function getStatus(job: Job): "Active" | "Inactive" {
+  return job.active ? "Active" : "Inactive";
 }
 
 const statusStyle: Record<string, string> = {
-  Active:   'bg-green-100 text-green-700',
-  Inactive: 'bg-gray-100 text-gray-500',
+  Active: "bg-green-100 text-green-700",
+  Inactive: "bg-gray-100 text-gray-500",
 };
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-GB', {
-    day:   '2-digit',
-    month: 'short',
-    year:  'numeric',
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
   });
 }
 
 // ─────────────────────────────────────────────────────────────
 export default function JobsPage() {
-  const [jobs, setJobs]         = useState<Job[]>([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState('');
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchMyJobs() {
       try {
         // API: GET /jobs/my — returns jobs for the logged-in user
-        const data = await apiFetch('/jobs/my');
+        const data = await apiFetch("/jobs/my");
         setJobs(data);
       } catch (err: any) {
-        setError(err.message || 'Failed to load jobs.');
+        setError(err.message || "Failed to load jobs.");
       } finally {
         setLoading(false);
       }
@@ -65,10 +65,10 @@ export default function JobsPage() {
   async function handleDelete(id: string) {
     try {
       // API: DELETE /jobs/:id
-      await apiFetch(`/jobs/${id}`, { method: 'DELETE' });
+      await apiFetch(`/jobs/${id}`, { method: "DELETE" });
       setJobs((prev) => prev.filter((j) => j.id !== id));
     } catch (err: any) {
-      alert(err.message || 'Failed to delete job.');
+      alert(err.message || "Failed to delete job.");
     } finally {
       setDeleteId(null);
     }
@@ -111,9 +111,7 @@ export default function JobsPage() {
       {/* ── PAGE HEADER ───────────────────────────────────── */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-xl font-black text-gray-900 sm:text-2xl">
-            Jobs
-          </h1>
+          <h1 className="text-xl font-black text-gray-900 sm:text-2xl">Jobs</h1>
           <p className="text-sm text-gray-500">
             Manage and monitor all your posted jobs.
           </p>
@@ -125,10 +123,16 @@ export default function JobsPage() {
         >
           <svg
             className="h-4 w-4"
-            fill="none" viewBox="0 0 24 24"
-            stroke="currentColor" strokeWidth={2.5}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.5}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4v16m8-8H4"
+            />
           </svg>
           Post New Job
         </Link>
@@ -140,10 +144,22 @@ export default function JobsPage() {
           <div className="flex flex-col items-center gap-3 text-gray-400">
             <svg
               className="h-6 w-6 animate-spin text-[#ff6600]"
-              fill="none" viewBox="0 0 24 24"
+              fill="none"
+              viewBox="0 0 24 24"
             >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
             </svg>
             <p className="text-sm font-medium">Loading your jobs...</p>
           </div>
@@ -169,17 +185,24 @@ export default function JobsPage() {
         <div className="flex flex-col items-center gap-4 rounded-lg border border-gray-200 bg-white py-16 text-center shadow-sm">
           <svg
             className="h-12 w-12 text-gray-200"
-            fill="none" viewBox="0 0 24 24"
-            stroke="currentColor" strokeWidth={1.5}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+            />
           </svg>
           <div>
-            <p className="text-sm font-semibold text-gray-600">No jobs posted yet</p>
+            <p className="text-sm font-semibold text-gray-600">
+              No jobs posted yet
+            </p>
             <p className="mt-1 text-xs text-gray-400">
-              Click{' '}
-              <strong className="text-[#ff6600]">Post New Job</strong>{' '}
-              to create your first listing.
+              Click <strong className="text-[#ff6600]">Post New Job</strong> to
+              create your first listing.
             </p>
           </div>
           <Link
@@ -228,14 +251,17 @@ export default function JobsPage() {
                             alt={job.company.name}
                             className="h-full w-full object-cover"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).style.display = 'none';
+                              (e.target as HTMLImageElement).style.display =
+                                "none";
                             }}
                           />
                         ) : (
                           job.company.name.charAt(0).toUpperCase()
                         )}
                       </div>
-                      <p className="text-xs text-gray-500">{job.company.name}</p>
+                      <p className="text-xs text-gray-500">
+                        {job.company.name}
+                      </p>
                     </div>
                   )}
 
@@ -279,7 +305,7 @@ export default function JobsPage() {
 
             {/* Mobile footer count */}
             <p className="text-center text-xs text-gray-400">
-              {jobs.length} job{jobs.length !== 1 ? 's' : ''} listed
+              {jobs.length} job{jobs.length !== 1 ? "s" : ""} listed
             </p>
           </div>
 
@@ -292,12 +318,12 @@ export default function JobsPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     {[
-                      'Job Title',
-                      'Company',
-                      'Skills',
-                      'Status',
-                      'Date Posted',
-                      'Actions',
+                      "Job Title",
+                      "Company",
+                      "Skills",
+                      "Status",
+                      "Date Posted",
+                      "Actions",
                     ].map((h) => (
                       <th
                         key={h}
@@ -334,7 +360,9 @@ export default function JobsPage() {
                                     alt={job.company.name}
                                     className="h-full w-full object-cover"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).style.display = 'none';
+                                      (
+                                        e.target as HTMLImageElement
+                                      ).style.display = "none";
                                     }}
                                   />
                                 ) : (
@@ -374,7 +402,9 @@ export default function JobsPage() {
 
                         {/* Status */}
                         <td className="whitespace-nowrap px-4 py-3">
-                          <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${statusStyle[status]}`}>
+                          <span
+                            className={`rounded-full px-2.5 py-1 text-xs font-bold ${statusStyle[status]}`}
+                          >
                             {status}
                           </span>
                         </td>
@@ -405,7 +435,7 @@ export default function JobsPage() {
 
             {/* Table footer */}
             <div className="border-t border-gray-100 bg-gray-50 px-4 py-2 text-xs text-gray-400">
-              Showing {jobs.length} job{jobs.length !== 1 ? 's' : ''}
+              Showing {jobs.length} job{jobs.length !== 1 ? "s" : ""}
             </div>
           </div>
         </>

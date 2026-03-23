@@ -37,18 +37,21 @@ let JobsService = class JobsService {
             },
             include: {
                 company: {
-                    select: {
-                        id: true,
-                        name: true,
-                        logo: true,
-                    },
+                    select: { id: true, name: true, logo: true },
                 },
                 postedBy: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                    },
+                    select: { id: true, name: true, email: true },
+                },
+            },
+        });
+    }
+    getAllActiveJobs() {
+        return this.prisma.job.findMany({
+            where: { active: true },
+            orderBy: { createdAt: 'desc' },
+            include: {
+                company: {
+                    select: { id: true, name: true, logo: true },
                 },
             },
         });
@@ -59,11 +62,7 @@ let JobsService = class JobsService {
             orderBy: { createdAt: 'desc' },
             include: {
                 company: {
-                    select: {
-                        id: true,
-                        name: true,
-                        logo: true,
-                    },
+                    select: { id: true, name: true, logo: true },
                 },
             },
         });
@@ -82,22 +81,14 @@ let JobsService = class JobsService {
                     },
                 },
                 postedBy: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                    },
+                    select: { id: true, name: true, email: true },
                 },
                 workers: {
                     include: {
                         worker: {
                             include: {
                                 user: {
-                                    select: {
-                                        id: true,
-                                        name: true,
-                                        email: true,
-                                    },
+                                    select: { id: true, name: true, email: true },
                                 },
                             },
                         },
@@ -108,11 +99,7 @@ let JobsService = class JobsService {
     }
     async getJobsForMap() {
         return this.prisma.job.findMany({
-            where: {
-                lat: { not: null },
-                lng: { not: null },
-                active: true,
-            },
+            where: { lat: { not: null }, lng: { not: null }, active: true },
             select: {
                 id: true,
                 title: true,
@@ -121,22 +108,17 @@ let JobsService = class JobsService {
                 skills: true,
                 active: true,
                 company: {
-                    select: {
-                        id: true,
-                        name: true,
-                    },
+                    select: { id: true, name: true },
                 },
             },
         });
     }
     async deleteJob(id, userId) {
         const job = await this.prisma.job.findUnique({ where: { id } });
-        if (!job) {
+        if (!job)
             throw new NotFoundException('Job not found.');
-        }
-        if (job.postedById !== userId) {
+        if (job.postedById !== userId)
             throw new ForbiddenException('You do not own this job.');
-        }
         return this.prisma.job.delete({ where: { id } });
     }
 };

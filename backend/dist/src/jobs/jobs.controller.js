@@ -37,6 +37,9 @@ let JobsController = class JobsController {
     deleteJob(id, req) {
         return this.jobsService.deleteJob(id, req.user.sub);
     }
+    getAllActiveJobs() {
+        return this.jobsService.getAllActiveJobs();
+    }
 };
 __decorate([
     Post(),
@@ -75,6 +78,12 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "deleteJob", null);
+__decorate([
+    Get(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getAllActiveJobs", null);
 JobsController = __decorate([
     Controller('jobs'),
     UseGuards(JwtAuthGuard),

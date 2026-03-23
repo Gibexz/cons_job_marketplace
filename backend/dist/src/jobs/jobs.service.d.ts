@@ -26,6 +26,24 @@ export declare class JobsService {
         lng: number | null;
         postedById: string;
     }>;
+    getAllActiveJobs(): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        company: {
+            id: string;
+            name: string;
+            logo: string | null;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        title: string;
+        description: string;
+        companyId: string;
+        skills: string[];
+        active: boolean;
+        lat: number | null;
+        lng: number | null;
+        postedById: string;
+    })[]>;
     getJobsByUser(userId: string): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
         company: {
             id: string;
