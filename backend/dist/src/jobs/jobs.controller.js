@@ -10,23 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Post, Body, UseGuards, Req, Get, Param, NotFoundException, Delete, HttpCode, HttpStatus, } from '@nestjs/common';
+import { Controller, Post, Patch, Body, UseGuards, Req, Get, Param, Query, NotFoundException, Delete, HttpCode, HttpStatus, } from '@nestjs/common';
 import { JobsService } from './jobs.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
+import { UpdateJobDto } from './dto/update-job.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
+import { JobStatus } from '../generated/prisma/client.js';
 let JobsController = class JobsController {
     jobsService;
     constructor(jobsService) {
         this.jobsService = jobsService;
     }
-    createJob(dto, req) {
-        return this.jobsService.createJob(dto, req.user.sub);
+    getAllJobs() {
+        return this.jobsService.getAllJobs();
     }
-    getMyJobs(req) {
-        return this.jobsService.getJobsByUser(req.user.sub);
+    getAllActiveJobs() {
+        return this.jobsService.getAllActiveJobs();
+    }
+    getMyJobs(req, status) {
+        return this.jobsService.getJobsByUser(req.user.sub, status);
+    }
+    getMyJobCounts(req) {
+        return this.jobsService.getJobCountsByStatus(req.user.sub);
     }
     getJobsForMap() {
         return this.jobsService.getJobsForMap();
+    }
+    createJob(dto, req) {
+        return this.jobsService.createJob(dto, req.user.sub);
     }
     async getJobById(id) {
         const job = await this.jobsService.getJobById(id);
@@ -34,14 +45,51 @@ let JobsController = class JobsController {
             throw new NotFoundException('Job not found.');
         return job;
     }
+    updateJob(id, dto, req) {
+        return this.jobsService.updateJob(id, req.user.sub, dto);
+    }
     deleteJob(id, req) {
         return this.jobsService.deleteJob(id, req.user.sub);
     }
-    getAllActiveJobs() {
-        return this.jobsService.getAllActiveJobs();
-    }
 };
 __decorate([
+    Get('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getAllJobs", null);
+__decorate([
+    Get('active'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getAllActiveJobs", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
+    Get('my'),
+    __param(0, Req()),
+    __param(1, Query('status')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getMyJobs", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
+    Get('my/counts'),
+    __param(0, Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getMyJobCounts", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
+    Get('map'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "getJobsForMap", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
     Post(),
     __param(0, Body()),
     __param(1, Req()),
@@ -50,19 +98,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "createJob", null);
 __decorate([
-    Get('my'),
-    __param(0, Req()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], JobsController.prototype, "getMyJobs", null);
-__decorate([
-    Get('map'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], JobsController.prototype, "getJobsForMap", null);
-__decorate([
+    UseGuards(JwtAuthGuard),
     Get(':id'),
     __param(0, Param('id')),
     __metadata("design:type", Function),
@@ -70,6 +106,17 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], JobsController.prototype, "getJobById", null);
 __decorate([
+    UseGuards(JwtAuthGuard),
+    Patch(':id'),
+    __param(0, Param('id')),
+    __param(1, Body()),
+    __param(2, Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, UpdateJobDto, Object]),
+    __metadata("design:returntype", void 0)
+], JobsController.prototype, "updateJob", null);
+__decorate([
+    UseGuards(JwtAuthGuard),
     Delete(':id'),
     HttpCode(HttpStatus.NO_CONTENT),
     __param(0, Param('id')),
@@ -78,15 +125,8 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], JobsController.prototype, "deleteJob", null);
-__decorate([
-    Get(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], JobsController.prototype, "getAllActiveJobs", null);
 JobsController = __decorate([
     Controller('jobs'),
-    UseGuards(JwtAuthGuard),
     __metadata("design:paramtypes", [JobsService])
 ], JobsController);
 export { JobsController };

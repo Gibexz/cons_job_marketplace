@@ -9,6 +9,17 @@
 * 🟢 You can import this file directly.
 */
 
+export const JobStatus = {
+  ACTIVE: 'ACTIVE',
+  CLOSED: 'CLOSED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  DRAFT: 'DRAFT'
+} as const
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
+
+
 export const ExperienceLevel = {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
@@ -19,11 +30,12 @@ export const ExperienceLevel = {
 export type ExperienceLevel = (typeof ExperienceLevel)[keyof typeof ExperienceLevel]
 
 
-export const JobWorkerStatus = {
+export const JobApplicationStatus = {
   INVITED: 'INVITED',
   APPLIED: 'APPLIED',
   ACCEPTED: 'ACCEPTED',
-  REJECTED: 'REJECTED'
+  REJECTED: 'REJECTED',
+  COMPLETED: 'COMPLETED'
 } as const
 
-export type JobWorkerStatus = (typeof JobWorkerStatus)[keyof typeof JobWorkerStatus]
+export type JobApplicationStatus = (typeof JobApplicationStatus)[keyof typeof JobApplicationStatus]

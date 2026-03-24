@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable, NotFoundException, ForbiddenException, } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { JobStatus } from '../generated/prisma/client.js';
 let JobsService = class JobsService {
     prisma;
     constructor(prisma) {
@@ -18,52 +19,96 @@ let JobsService = class JobsService {
         const company = await this.prisma.company.findUnique({
             where: { id: dto.companyId },
         });
-        if (!company) {
+        if (!company)
             throw new NotFoundException('Company not found.');
-        }
-        if (company.ownerId !== userId) {
+        if (company.ownerId !== userId)
             throw new ForbiddenException('You do not own this company.');
-        }
         return this.prisma.job.create({
             data: {
                 title: dto.title,
                 description: dto.description,
-                skills: dto.skills,
-                active: dto.active,
+                skills: dto.skills ?? [],
+                active: dto.active ?? true,
+                status: dto.status ?? JobStatus.ACTIVE,
                 lat: dto.lat,
                 lng: dto.lng,
                 companyId: dto.companyId,
                 postedById: userId,
             },
             include: {
-                company: {
-                    select: { id: true, name: true, logo: true },
-                },
-                postedBy: {
-                    select: { id: true, name: true, email: true },
-                },
+                company: { select: { id: true, name: true, logo: true } },
+                postedBy: { select: { id: true, name: true, email: true } },
+            },
+        });
+    }
+    getAllJobs() {
+        return this.prisma.job.findMany({
+            orderBy: { createdAt: 'desc' },
+            include: {
+                company: { select: { id: true, name: true, logo: true } },
             },
         });
     }
     getAllActiveJobs() {
         return this.prisma.job.findMany({
-            where: { active: true },
+            where: { status: JobStatus.ACTIVE },
             orderBy: { createdAt: 'desc' },
             include: {
-                company: {
-                    select: { id: true, name: true, logo: true },
+                company: { select: { id: true, name: true, logo: true } },
+            },
+        });
+    }
+    getJobsByUser(userId, status) {
+        return this.prisma.job.findMany({
+            where: {
+                postedById: userId,
+                ...(status ? { status } : {}),
+            },
+            orderBy: { createdAt: 'desc' },
+            include: {
+                company: { select: { id: true, name: true, logo: true } },
+                applications: {
+                    select: {
+                        id: true,
+                        status: true,
+                        worker: {
+                            select: { user: { select: { name: true } } },
+                        },
+                    },
                 },
             },
         });
     }
-    getJobsByUser(userId) {
-        return this.prisma.job.findMany({
-            where: { postedById: userId },
-            orderBy: { createdAt: 'desc' },
+    async getJobCountsByStatus(userId) {
+        const [active, closed, completed, cancelled, draft, all] = await Promise.all([
+            this.prisma.job.count({ where: { postedById: userId, status: JobStatus.ACTIVE } }),
+            this.prisma.job.count({ where: { postedById: userId, status: JobStatus.CLOSED } }),
+            this.prisma.job.count({ where: { postedById: userId, status: JobStatus.COMPLETED } }),
+            this.prisma.job.count({ where: { postedById: userId, status: JobStatus.CANCELLED } }),
+            this.prisma.job.count({ where: { postedById: userId, status: JobStatus.DRAFT } }),
+            this.prisma.job.count({ where: { postedById: userId } }),
+        ]);
+        return { all, active, closed, completed, cancelled, draft };
+    }
+    async updateJob(id, userId, dto) {
+        const job = await this.prisma.job.findUnique({ where: { id } });
+        if (!job)
+            throw new NotFoundException('Job not found.');
+        if (job.postedById !== userId)
+            throw new ForbiddenException('You do not own this job.');
+        const active = dto.active !== undefined
+            ? dto.active
+            : dto.status !== undefined
+                ? dto.status === JobStatus.ACTIVE
+                : undefined;
+        return this.prisma.job.update({
+            where: { id },
+            data: {
+                ...dto,
+                ...(active !== undefined ? { active } : {}),
+            },
             include: {
-                company: {
-                    select: { id: true, name: true, logo: true },
-                },
+                company: { select: { id: true, name: true, logo: true } },
             },
         });
     }
@@ -72,24 +117,16 @@ let JobsService = class JobsService {
             where: { id },
             include: {
                 company: {
-                    select: {
-                        id: true,
-                        name: true,
-                        logo: true,
-                        address: true,
-                        rating: true,
-                    },
+                    select: { id: true, name: true, logo: true, address: true, rating: true },
                 },
                 postedBy: {
                     select: { id: true, name: true, email: true },
                 },
-                workers: {
+                applications: {
                     include: {
                         worker: {
                             include: {
-                                user: {
-                                    select: { id: true, name: true, email: true },
-                                },
+                                user: { select: { id: true, name: true, email: true } },
                             },
                         },
                     },
@@ -99,17 +136,15 @@ let JobsService = class JobsService {
     }
     async getJobsForMap() {
         return this.prisma.job.findMany({
-            where: { lat: { not: null }, lng: { not: null }, active: true },
+            where: {
+                status: JobStatus.ACTIVE,
+                lat: { not: null },
+                lng: { not: null },
+            },
             select: {
-                id: true,
-                title: true,
-                lat: true,
-                lng: true,
-                skills: true,
-                active: true,
-                company: {
-                    select: { id: true, name: true },
-                },
+                id: true, title: true, lat: true, lng: true,
+                skills: true, active: true, status: true,
+                company: { select: { id: true, name: true } },
             },
         });
     }
@@ -119,6 +154,7 @@ let JobsService = class JobsService {
             throw new NotFoundException('Job not found.');
         if (job.postedById !== userId)
             throw new ForbiddenException('You do not own this job.');
+        await this.prisma.jobApplication.deleteMany({ where: { jobId: id } });
         return this.prisma.job.delete({ where: { id } });
     }
 };

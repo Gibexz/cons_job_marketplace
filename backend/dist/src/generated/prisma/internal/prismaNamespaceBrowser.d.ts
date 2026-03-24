@@ -14,7 +14,7 @@ export declare const ModelName: {
     readonly User: "User";
     readonly Job: "Job";
     readonly WorkerProfile: "WorkerProfile";
-    readonly JobWorker: "JobWorker";
+    readonly JobApplication: "JobApplication";
     readonly Company: "Company";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -44,6 +44,7 @@ export declare const JobScalarFieldEnum: {
     readonly lng: "lng";
     readonly skills: "skills";
     readonly active: "active";
+    readonly status: "status";
     readonly createdAt: "createdAt";
 };
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -60,14 +61,14 @@ export declare const WorkerProfileScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum];
-export declare const JobWorkerScalarFieldEnum: {
+export declare const JobApplicationScalarFieldEnum: {
     readonly id: "id";
     readonly jobId: "jobId";
     readonly workerId: "workerId";
     readonly status: "status";
     readonly createdAt: "createdAt";
 };
-export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum];
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum];
 export declare const CompanyScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";

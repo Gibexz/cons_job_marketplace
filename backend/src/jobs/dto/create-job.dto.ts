@@ -1,40 +1,3 @@
-// import {
-//   IsString,
-//   IsOptional,
-//   IsNumber,
-//   IsBoolean,
-//   IsArray,
-// } from 'class-validator';
-
-// export class CreateJobDto {
-//   @IsString()
-//   title: string;
-
-//   @IsString()
-//   description: string;
-
-//   @IsOptional()
-//   @IsString()
-//   company?: string;
-
-//   @IsOptional()
-//   @IsNumber()
-//   lat?: number;
-
-//   @IsOptional()
-//   @IsNumber()
-//   lng?: number;
-
-//   @IsOptional()
-//   @IsArray()
-//   @IsString({ each: true }) // validates every item in the array is a string
-//   skills?: string[];
-
-//   @IsOptional()
-//   @IsBoolean()
-//   active?: boolean;
-// }
-
 import {
   IsString,
   IsArray,
@@ -42,32 +5,55 @@ import {
   IsOptional,
   IsNumber,
   IsUUID,
+  IsEnum,
   MinLength,
   MaxLength,
-  ArrayNotEmpty,
+  IsNotEmpty,
 } from 'class-validator';
+import { JobStatus } from '../../generated/prisma/client.js';
 
 export class CreateJobDto {
+
+  // ── Required fields ───────────────────────────────────────
+
   @IsString()
+  @IsNotEmpty()
   @MinLength(3)
   @MaxLength(100)
   title: string;
 
   @IsString()
+  @IsNotEmpty()
   @MinLength(10)
   description: string;
 
+  // Every job must belong to a company owned by the posting user
+  // Validated as UUID — service verifies ownership separately
   @IsUUID()
-  companyId: string; // ← now a validated UUID, not a plain string
+  companyId: string;
 
+  // ── Optional fields ───────────────────────────────────────
+
+  // Skills default to [] in the service if not provided
+  // Made optional here so the frontend can submit without skills
+  // and the service will store an empty array
+  @IsOptional()
   @IsArray()
-  @ArrayNotEmpty()
   @IsString({ each: true })
-  skills: string[];
+  skills?: string[];
 
+  // Active defaults to true in the service if not provided
+  @IsOptional()
   @IsBoolean()
-  active: boolean;
+  active?: boolean;
 
+  // Status defaults to ACTIVE in the service if not provided
+  // Allows creating a job as DRAFT before publishing
+  @IsOptional()
+  @IsEnum(JobStatus)
+  status?: JobStatus;
+
+  // Coordinates are optional — not all jobs have a physical location
   @IsOptional()
   @IsNumber()
   lat?: number;

@@ -8,8 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { PrismaService } from './prisma/prisma.service.js';
 import { WorkerProfileModule } from './worker-profile/worker-profile.module.js';
-import { JobWorkerModule } from './job-worker/job-worker.module.js';
 import { CompanyModule } from './company/company.module.js';
+import { ApplicationsModule } from './applications/applications.module.js';
+import { InvitesModule } from './invites/invites.module.js';
 
 @Module({
   imports: [
@@ -19,8 +20,9 @@ import { CompanyModule } from './company/company.module.js';
     JobsModule,
     PrismaModule,
     WorkerProfileModule,
-    JobWorkerModule,
     CompanyModule,
+    ApplicationsModule,
+    InvitesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

@@ -160,7 +160,7 @@ export declare const ModelName: {
     readonly User: "User";
     readonly Job: "Job";
     readonly WorkerProfile: "WorkerProfile";
-    readonly JobWorker: "JobWorker";
+    readonly JobApplication: "JobApplication";
     readonly Company: "Company";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -174,7 +174,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "job" | "workerProfile" | "jobWorker" | "company";
+        modelProps: "user" | "job" | "workerProfile" | "jobApplication" | "company";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -400,77 +400,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
-        JobWorker: {
-            payload: Prisma.$JobWorkerPayload<ExtArgs>;
-            fields: Prisma.JobWorkerFieldRefs;
+        JobApplication: {
+            payload: Prisma.$JobApplicationPayload<ExtArgs>;
+            fields: Prisma.JobApplicationFieldRefs;
             operations: {
                 findUnique: {
-                    args: Prisma.JobWorkerFindUniqueArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload> | null;
+                    args: Prisma.JobApplicationFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload> | null;
                 };
                 findUniqueOrThrow: {
-                    args: Prisma.JobWorkerFindUniqueOrThrowArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 findFirst: {
-                    args: Prisma.JobWorkerFindFirstArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload> | null;
+                    args: Prisma.JobApplicationFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload> | null;
                 };
                 findFirstOrThrow: {
-                    args: Prisma.JobWorkerFindFirstOrThrowArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 findMany: {
-                    args: Prisma.JobWorkerFindManyArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[];
+                    args: Prisma.JobApplicationFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>[];
                 };
                 create: {
-                    args: Prisma.JobWorkerCreateArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 createMany: {
-                    args: Prisma.JobWorkerCreateManyArgs<ExtArgs>;
+                    args: Prisma.JobApplicationCreateManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 createManyAndReturn: {
-                    args: Prisma.JobWorkerCreateManyAndReturnArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[];
+                    args: Prisma.JobApplicationCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>[];
                 };
                 delete: {
-                    args: Prisma.JobWorkerDeleteArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 update: {
-                    args: Prisma.JobWorkerUpdateArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 deleteMany: {
-                    args: Prisma.JobWorkerDeleteManyArgs<ExtArgs>;
+                    args: Prisma.JobApplicationDeleteManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 updateMany: {
-                    args: Prisma.JobWorkerUpdateManyArgs<ExtArgs>;
+                    args: Prisma.JobApplicationUpdateManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 updateManyAndReturn: {
-                    args: Prisma.JobWorkerUpdateManyAndReturnArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>[];
+                    args: Prisma.JobApplicationUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>[];
                 };
                 upsert: {
-                    args: Prisma.JobWorkerUpsertArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobWorkerPayload>;
+                    args: Prisma.JobApplicationUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$JobApplicationPayload>;
                 };
                 aggregate: {
-                    args: Prisma.JobWorkerAggregateArgs<ExtArgs>;
-                    result: runtime.Types.Utils.Optional<Prisma.AggregateJobWorker>;
+                    args: Prisma.JobApplicationAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateJobApplication>;
                 };
                 groupBy: {
-                    args: Prisma.JobWorkerGroupByArgs<ExtArgs>;
-                    result: runtime.Types.Utils.Optional<Prisma.JobWorkerGroupByOutputType>[];
+                    args: Prisma.JobApplicationGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.JobApplicationGroupByOutputType>[];
                 };
                 count: {
-                    args: Prisma.JobWorkerCountArgs<ExtArgs>;
-                    result: runtime.Types.Utils.Optional<Prisma.JobWorkerCountAggregateOutputType> | number;
+                    args: Prisma.JobApplicationCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType> | number;
                 };
             };
         };
@@ -598,6 +598,7 @@ export declare const JobScalarFieldEnum: {
     readonly lng: "lng";
     readonly skills: "skills";
     readonly active: "active";
+    readonly status: "status";
     readonly createdAt: "createdAt";
 };
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -614,14 +615,14 @@ export declare const WorkerProfileScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum];
-export declare const JobWorkerScalarFieldEnum: {
+export declare const JobApplicationScalarFieldEnum: {
     readonly id: "id";
     readonly jobId: "jobId";
     readonly workerId: "workerId";
     readonly status: "status";
     readonly createdAt: "createdAt";
 };
-export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum];
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum];
 export declare const CompanyScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
@@ -655,10 +656,12 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
+export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>;
+export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus[]'>;
 export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>;
 export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>;
-export type EnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus'>;
-export type ListEnumJobWorkerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobWorkerStatus[]'>;
+export type EnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobApplicationStatus'>;
+export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobApplicationStatus[]'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
 export type BatchPayload = {
@@ -688,7 +691,7 @@ export type GlobalOmitConfig = {
     user?: Prisma.UserOmit;
     job?: Prisma.JobOmit;
     workerProfile?: Prisma.WorkerProfileOmit;
-    jobWorker?: Prisma.JobWorkerOmit;
+    jobApplication?: Prisma.JobApplicationOmit;
     company?: Prisma.CompanyOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';

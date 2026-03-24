@@ -27,7 +27,7 @@ export const ModelName = {
     User: 'User',
     Job: 'Job',
     WorkerProfile: 'WorkerProfile',
-    JobWorker: 'JobWorker',
+    JobApplication: 'JobApplication',
     Company: 'Company'
 };
 export const TransactionIsolationLevel = runtime.makeStrictEnum({
@@ -54,6 +54,7 @@ export const JobScalarFieldEnum = {
     lng: 'lng',
     skills: 'skills',
     active: 'active',
+    status: 'status',
     createdAt: 'createdAt'
 };
 export const WorkerProfileScalarFieldEnum = {
@@ -68,7 +69,7 @@ export const WorkerProfileScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-export const JobWorkerScalarFieldEnum = {
+export const JobApplicationScalarFieldEnum = {
     id: 'id',
     jobId: 'jobId',
     workerId: 'workerId',

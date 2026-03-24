@@ -54,7 +54,7 @@ export const ModelName = {
   User: 'User',
   Job: 'Job',
   WorkerProfile: 'WorkerProfile',
-  JobWorker: 'JobWorker',
+  JobApplication: 'JobApplication',
   Company: 'Company'
 } as const
 
@@ -96,6 +96,7 @@ export const JobScalarFieldEnum = {
   lng: 'lng',
   skills: 'skills',
   active: 'active',
+  status: 'status',
   createdAt: 'createdAt'
 } as const
 
@@ -118,7 +119,7 @@ export const WorkerProfileScalarFieldEnum = {
 export type WorkerProfileScalarFieldEnum = (typeof WorkerProfileScalarFieldEnum)[keyof typeof WorkerProfileScalarFieldEnum]
 
 
-export const JobWorkerScalarFieldEnum = {
+export const JobApplicationScalarFieldEnum = {
   id: 'id',
   jobId: 'jobId',
   workerId: 'workerId',
@@ -126,7 +127,7 @@ export const JobWorkerScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type JobWorkerScalarFieldEnum = (typeof JobWorkerScalarFieldEnum)[keyof typeof JobWorkerScalarFieldEnum]
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
 export const CompanyScalarFieldEnum = {

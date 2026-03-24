@@ -257,7 +257,7 @@ export type WorkerProfileWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  jobs?: Prisma.JobWorkerListRelationFilter
+  applications?: Prisma.JobApplicationListRelationFilter
 }
 
 export type WorkerProfileOrderByWithRelationInput = {
@@ -272,7 +272,7 @@ export type WorkerProfileOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  jobs?: Prisma.JobWorkerOrderByRelationAggregateInput
+  applications?: Prisma.JobApplicationOrderByRelationAggregateInput
 }
 
 export type WorkerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -290,7 +290,7 @@ export type WorkerProfileWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WorkerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  jobs?: Prisma.JobWorkerListRelationFilter
+  applications?: Prisma.JobApplicationListRelationFilter
 }, "id" | "userId">
 
 export type WorkerProfileOrderByWithAggregationInput = {
@@ -338,7 +338,7 @@ export type WorkerProfileCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWorkerProfileInput
-  jobs?: Prisma.JobWorkerCreateNestedManyWithoutWorkerInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutWorkerInput
 }
 
 export type WorkerProfileUncheckedCreateInput = {
@@ -352,7 +352,7 @@ export type WorkerProfileUncheckedCreateInput = {
   lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  jobs?: Prisma.JobWorkerUncheckedCreateNestedManyWithoutWorkerInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutWorkerInput
 }
 
 export type WorkerProfileUpdateInput = {
@@ -366,7 +366,7 @@ export type WorkerProfileUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWorkerProfileNestedInput
-  jobs?: Prisma.JobWorkerUpdateManyWithoutWorkerNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutWorkerNestedInput
 }
 
 export type WorkerProfileUncheckedUpdateInput = {
@@ -380,7 +380,7 @@ export type WorkerProfileUncheckedUpdateInput = {
   lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  jobs?: Prisma.JobWorkerUncheckedUpdateManyWithoutWorkerNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutWorkerNestedInput
 }
 
 export type WorkerProfileCreateManyInput = {
@@ -523,18 +523,18 @@ export type EnumExperienceLevelFieldUpdateOperationsInput = {
   set?: $Enums.ExperienceLevel
 }
 
-export type WorkerProfileCreateNestedOneWithoutJobsInput = {
-  create?: Prisma.XOR<Prisma.WorkerProfileCreateWithoutJobsInput, Prisma.WorkerProfileUncheckedCreateWithoutJobsInput>
-  connectOrCreate?: Prisma.WorkerProfileCreateOrConnectWithoutJobsInput
+export type WorkerProfileCreateNestedOneWithoutApplicationsInput = {
+  create?: Prisma.XOR<Prisma.WorkerProfileCreateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedCreateWithoutApplicationsInput>
+  connectOrCreate?: Prisma.WorkerProfileCreateOrConnectWithoutApplicationsInput
   connect?: Prisma.WorkerProfileWhereUniqueInput
 }
 
-export type WorkerProfileUpdateOneRequiredWithoutJobsNestedInput = {
-  create?: Prisma.XOR<Prisma.WorkerProfileCreateWithoutJobsInput, Prisma.WorkerProfileUncheckedCreateWithoutJobsInput>
-  connectOrCreate?: Prisma.WorkerProfileCreateOrConnectWithoutJobsInput
-  upsert?: Prisma.WorkerProfileUpsertWithoutJobsInput
+export type WorkerProfileUpdateOneRequiredWithoutApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkerProfileCreateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedCreateWithoutApplicationsInput>
+  connectOrCreate?: Prisma.WorkerProfileCreateOrConnectWithoutApplicationsInput
+  upsert?: Prisma.WorkerProfileUpsertWithoutApplicationsInput
   connect?: Prisma.WorkerProfileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkerProfileUpdateToOneWithWhereWithoutJobsInput, Prisma.WorkerProfileUpdateWithoutJobsInput>, Prisma.WorkerProfileUncheckedUpdateWithoutJobsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkerProfileUpdateToOneWithWhereWithoutApplicationsInput, Prisma.WorkerProfileUpdateWithoutApplicationsInput>, Prisma.WorkerProfileUncheckedUpdateWithoutApplicationsInput>
 }
 
 export type WorkerProfileCreateWithoutUserInput = {
@@ -547,7 +547,7 @@ export type WorkerProfileCreateWithoutUserInput = {
   lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  jobs?: Prisma.JobWorkerCreateNestedManyWithoutWorkerInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutWorkerInput
 }
 
 export type WorkerProfileUncheckedCreateWithoutUserInput = {
@@ -560,7 +560,7 @@ export type WorkerProfileUncheckedCreateWithoutUserInput = {
   lng?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  jobs?: Prisma.JobWorkerUncheckedCreateNestedManyWithoutWorkerInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutWorkerInput
 }
 
 export type WorkerProfileCreateOrConnectWithoutUserInput = {
@@ -589,7 +589,7 @@ export type WorkerProfileUpdateWithoutUserInput = {
   lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  jobs?: Prisma.JobWorkerUpdateManyWithoutWorkerNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutWorkerNestedInput
 }
 
 export type WorkerProfileUncheckedUpdateWithoutUserInput = {
@@ -602,10 +602,10 @@ export type WorkerProfileUncheckedUpdateWithoutUserInput = {
   lng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  jobs?: Prisma.JobWorkerUncheckedUpdateManyWithoutWorkerNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutWorkerNestedInput
 }
 
-export type WorkerProfileCreateWithoutJobsInput = {
+export type WorkerProfileCreateWithoutApplicationsInput = {
   id?: string
   skills?: Prisma.WorkerProfileCreateskillsInput | string[]
   experience: $Enums.ExperienceLevel
@@ -618,7 +618,7 @@ export type WorkerProfileCreateWithoutJobsInput = {
   user: Prisma.UserCreateNestedOneWithoutWorkerProfileInput
 }
 
-export type WorkerProfileUncheckedCreateWithoutJobsInput = {
+export type WorkerProfileUncheckedCreateWithoutApplicationsInput = {
   id?: string
   userId: string
   skills?: Prisma.WorkerProfileCreateskillsInput | string[]
@@ -631,23 +631,23 @@ export type WorkerProfileUncheckedCreateWithoutJobsInput = {
   updatedAt?: Date | string
 }
 
-export type WorkerProfileCreateOrConnectWithoutJobsInput = {
+export type WorkerProfileCreateOrConnectWithoutApplicationsInput = {
   where: Prisma.WorkerProfileWhereUniqueInput
-  create: Prisma.XOR<Prisma.WorkerProfileCreateWithoutJobsInput, Prisma.WorkerProfileUncheckedCreateWithoutJobsInput>
+  create: Prisma.XOR<Prisma.WorkerProfileCreateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedCreateWithoutApplicationsInput>
 }
 
-export type WorkerProfileUpsertWithoutJobsInput = {
-  update: Prisma.XOR<Prisma.WorkerProfileUpdateWithoutJobsInput, Prisma.WorkerProfileUncheckedUpdateWithoutJobsInput>
-  create: Prisma.XOR<Prisma.WorkerProfileCreateWithoutJobsInput, Prisma.WorkerProfileUncheckedCreateWithoutJobsInput>
+export type WorkerProfileUpsertWithoutApplicationsInput = {
+  update: Prisma.XOR<Prisma.WorkerProfileUpdateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedUpdateWithoutApplicationsInput>
+  create: Prisma.XOR<Prisma.WorkerProfileCreateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedCreateWithoutApplicationsInput>
   where?: Prisma.WorkerProfileWhereInput
 }
 
-export type WorkerProfileUpdateToOneWithWhereWithoutJobsInput = {
+export type WorkerProfileUpdateToOneWithWhereWithoutApplicationsInput = {
   where?: Prisma.WorkerProfileWhereInput
-  data: Prisma.XOR<Prisma.WorkerProfileUpdateWithoutJobsInput, Prisma.WorkerProfileUncheckedUpdateWithoutJobsInput>
+  data: Prisma.XOR<Prisma.WorkerProfileUpdateWithoutApplicationsInput, Prisma.WorkerProfileUncheckedUpdateWithoutApplicationsInput>
 }
 
-export type WorkerProfileUpdateWithoutJobsInput = {
+export type WorkerProfileUpdateWithoutApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   skills?: Prisma.WorkerProfileUpdateskillsInput | string[]
   experience?: Prisma.EnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel
@@ -660,7 +660,7 @@ export type WorkerProfileUpdateWithoutJobsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutWorkerProfileNestedInput
 }
 
-export type WorkerProfileUncheckedUpdateWithoutJobsInput = {
+export type WorkerProfileUncheckedUpdateWithoutApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   skills?: Prisma.WorkerProfileUpdateskillsInput | string[]
@@ -679,11 +679,11 @@ export type WorkerProfileUncheckedUpdateWithoutJobsInput = {
  */
 
 export type WorkerProfileCountOutputType = {
-  jobs: number
+  applications: number
 }
 
 export type WorkerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  jobs?: boolean | WorkerProfileCountOutputTypeCountJobsArgs
+  applications?: boolean | WorkerProfileCountOutputTypeCountApplicationsArgs
 }
 
 /**
@@ -699,8 +699,8 @@ export type WorkerProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
 /**
  * WorkerProfileCountOutputType without action
  */
-export type WorkerProfileCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.JobWorkerWhereInput
+export type WorkerProfileCountOutputTypeCountApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobApplicationWhereInput
 }
 
 
@@ -716,7 +716,7 @@ export type WorkerProfileSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  jobs?: boolean | Prisma.WorkerProfile$jobsArgs<ExtArgs>
+  applications?: boolean | Prisma.WorkerProfile$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workerProfile"]>
 
@@ -764,7 +764,7 @@ export type WorkerProfileSelectScalar = {
 export type WorkerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "skills" | "experience" | "available" | "bio" | "lat" | "lng" | "createdAt" | "updatedAt", ExtArgs["result"]["workerProfile"]>
 export type WorkerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  jobs?: boolean | Prisma.WorkerProfile$jobsArgs<ExtArgs>
+  applications?: boolean | Prisma.WorkerProfile$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -778,7 +778,7 @@ export type $WorkerProfilePayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "WorkerProfile"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    jobs: Prisma.$JobWorkerPayload<ExtArgs>[]
+    applications: Prisma.$JobApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1186,7 +1186,7 @@ readonly fields: WorkerProfileFieldRefs;
 export interface Prisma__WorkerProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  jobs<T extends Prisma.WorkerProfile$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkerProfile$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobWorkerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  applications<T extends Prisma.WorkerProfile$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkerProfile$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1622,27 +1622,27 @@ export type WorkerProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * WorkerProfile.jobs
+ * WorkerProfile.applications
  */
-export type WorkerProfile$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type WorkerProfile$applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the JobWorker
+   * Select specific fields to fetch from the JobApplication
    */
-  select?: Prisma.JobWorkerSelect<ExtArgs> | null
+  select?: Prisma.JobApplicationSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the JobWorker
+   * Omit specific fields from the JobApplication
    */
-  omit?: Prisma.JobWorkerOmit<ExtArgs> | null
+  omit?: Prisma.JobApplicationOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.JobWorkerInclude<ExtArgs> | null
-  where?: Prisma.JobWorkerWhereInput
-  orderBy?: Prisma.JobWorkerOrderByWithRelationInput | Prisma.JobWorkerOrderByWithRelationInput[]
-  cursor?: Prisma.JobWorkerWhereUniqueInput
+  include?: Prisma.JobApplicationInclude<ExtArgs> | null
+  where?: Prisma.JobApplicationWhereInput
+  orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.JobApplicationWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.JobWorkerScalarFieldEnum | Prisma.JobWorkerScalarFieldEnum[]
+  distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[]
 }
 
 /**
