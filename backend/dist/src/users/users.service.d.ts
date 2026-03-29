@@ -1,9 +1,15 @@
 import { PrismaService } from '../prisma/prisma.service.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { ChangePasswordDto } from './dto/change-password.dto.js';
 export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
     getMe(userId: string): Promise<{
+        id: string;
+        email: string;
+        name: string;
+        country: string | null;
+        createdAt: Date;
         workerProfile: {
             id: string;
             skills: string[];
@@ -20,14 +26,9 @@ export declare class UsersService {
             address: string | null;
             rating: number;
         }[];
-        id: string;
-        email: string;
-        name: string;
-        country: string | null;
-        createdAt: Date;
         _count: {
-            company: number;
             jobs: number;
+            company: number;
         };
     }>;
     updateMe(userId: string, dto: UpdateUserDto): Promise<{
@@ -36,5 +37,8 @@ export declare class UsersService {
         name: string;
         country: string | null;
         createdAt: Date;
+    }>;
+    changePassword(userId: string, dto: ChangePasswordDto): Promise<{
+        message: string;
     }>;
 }

@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable, NotFoundException, } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, UnauthorizedException, } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
+import * as bcrypt from 'bcrypt';
 let UsersService = class UsersService {
     prisma;
     constructor(prisma) {
@@ -62,6 +63,14 @@ let UsersService = class UsersService {
         });
         if (!user)
             throw new NotFoundException('User not found.');
+        if (dto.email && dto.email !== user.email) {
+            const existing = await this.prisma.user.findUnique({
+                where: { email: dto.email },
+            });
+            if (existing) {
+                throw new BadRequestException('Email is already in use.');
+            }
+        }
         return this.prisma.user.update({
             where: { id: userId },
             data: dto,
@@ -73,6 +82,26 @@ let UsersService = class UsersService {
                 createdAt: true,
             },
         });
+    }
+    async changePassword(userId, dto) {
+        if (dto.newPassword !== dto.confirmPassword) {
+            throw new BadRequestException('New password and confirmation do not match.');
+        }
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId },
+        });
+        if (!user)
+            throw new NotFoundException('User not found.');
+        const isMatch = await bcrypt.compare(dto.currentPassword, user.password);
+        if (!isMatch) {
+            throw new UnauthorizedException('Current password is incorrect.');
+        }
+        const hashed = await bcrypt.hash(dto.newPassword, 12);
+        await this.prisma.user.update({
+            where: { id: userId },
+            data: { password: hashed },
+        });
+        return { message: 'Password updated successfully.' };
     }
 };
 UsersService = __decorate([

@@ -1,9 +1,15 @@
 import { UsersService } from './users.service.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { ChangePasswordDto } from './dto/change-password.dto.js';
 export declare class UsersController {
     private service;
     constructor(service: UsersService);
     getMe(req: any): Promise<{
+        id: string;
+        email: string;
+        name: string;
+        country: string | null;
+        createdAt: Date;
         workerProfile: {
             id: string;
             skills: string[];
@@ -20,14 +26,9 @@ export declare class UsersController {
             address: string | null;
             rating: number;
         }[];
-        id: string;
-        email: string;
-        name: string;
-        country: string | null;
-        createdAt: Date;
         _count: {
-            company: number;
             jobs: number;
+            company: number;
         };
     }>;
     updateMe(req: any, dto: UpdateUserDto): Promise<{
@@ -36,5 +37,8 @@ export declare class UsersController {
         name: string;
         country: string | null;
         createdAt: Date;
+    }>;
+    changePassword(req: any, dto: ChangePasswordDto): Promise<{
+        message: string;
     }>;
 }

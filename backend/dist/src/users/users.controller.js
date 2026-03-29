@@ -10,9 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Controller, Get, Patch, Body, UseGuards, Req, } from '@nestjs/common';
+import { Controller, Get, Patch, Post, Body, UseGuards, Req, } from '@nestjs/common';
 import { UsersService } from './users.service.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { ChangePasswordDto } from './dto/change-password.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
 let UsersController = class UsersController {
     service;
@@ -24,6 +25,9 @@ let UsersController = class UsersController {
     }
     updateMe(req, dto) {
         return this.service.updateMe(req.user.sub, dto);
+    }
+    changePassword(req, dto) {
+        return this.service.changePassword(req.user.sub, dto);
     }
 };
 __decorate([
@@ -41,6 +45,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, UpdateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "updateMe", null);
+__decorate([
+    Post('me/change-password'),
+    __param(0, Req()),
+    __param(1, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, ChangePasswordDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "changePassword", null);
 UsersController = __decorate([
     Controller('users'),
     UseGuards(JwtAuthGuard),
