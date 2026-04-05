@@ -64,4 +64,21 @@ export class WorkerProfileService {
       },
     });
   }
+  // ── Get current user profile ─────────────────────────────
+  async getMatchingWorkers(skills: string[]) {
+    return this.prisma.workerProfile.findMany({
+      where: {
+        available: true,
+        skills: { hasSome: skills },
+      },
+      select: {
+        id: true,
+        lat: true,
+        lng: true,
+        skills: true,
+        experience: true,
+        user: { select: { id: true, name: true } },
+      },
+    });
+  }
 }

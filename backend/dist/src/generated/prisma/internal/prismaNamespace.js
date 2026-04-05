@@ -42,7 +42,8 @@ export const UserScalarFieldEnum = {
     password: 'password',
     name: 'name',
     country: 'country',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    profilePhoto: 'profilePhoto'
 };
 export const JobScalarFieldEnum = {
     id: 'id',

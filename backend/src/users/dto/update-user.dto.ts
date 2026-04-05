@@ -21,4 +21,8 @@ export class UpdateUserDto {
   @IsString()
   @MaxLength(100)
   country?: string;
+
+  @IsOptional()
+  @IsString()
+  profilePhoto?: string;
 }

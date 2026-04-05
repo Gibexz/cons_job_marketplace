@@ -6,6 +6,7 @@ import {
   Body,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { WorkerProfileService } from './worker-profile.service.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
@@ -41,5 +42,11 @@ export class WorkerProfileController {
   @Get('map')
   getWorkersForMap() {
     return this.service.getWorkersForMap();
+  }
+
+  @Get('match')
+  getMatchingWorkers(@Query('skills') skills: string) {
+    const skillsArray = skills ? skills.split(',') : [];
+    return this.service.getMatchingWorkers(skillsArray);
   }
 }

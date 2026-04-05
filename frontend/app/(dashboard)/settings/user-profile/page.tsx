@@ -6,17 +6,33 @@ import { apiFetch } from "@/lib/api";
 
 // ── TYPES ──────────────────────────────────────────────────────
 interface UserProfile {
-  id:       string;
-  name:     string;
-  email:    string;
+  id: string;
+  name: string;
+  email: string;
   country?: string;
+  profilePhoto?: string;
 }
 
 const COUNTRIES = [
-  "United Kingdom", "United States", "Canada", "Australia",
-  "Germany", "France", "Spain", "Italy", "Netherlands",
-  "Ireland", "Nigeria", "Ghana", "South Africa", "Kenya",
-  "India", "Pakistan", "Bangladesh", "Philippines", "Other",
+  "United Kingdom",
+  "United States",
+  "Canada",
+  "Australia",
+  "Germany",
+  "France",
+  "Spain",
+  "Italy",
+  "Netherlands",
+  "Ireland",
+  "Nigeria",
+  "Ghana",
+  "South Africa",
+  "Kenya",
+  "India",
+  "Pakistan",
+  "Bangladesh",
+  "Philippines",
+  "Other",
 ];
 
 const inputClass = [
@@ -26,38 +42,39 @@ const inputClass = [
   "bg-white",
 ].join(" ");
 
-// ─────────────────────────────────────────────────────────────
 export default function UserProfilePage() {
   const router = useRouter();
 
-  const [loading, setLoading]     = useState(true);
-  const [saving, setSaving]       = useState(false);
-  const [pwSaving, setPwSaving]   = useState(false);
-  const [success, setSuccess]     = useState("");
-  const [error, setError]         = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [pwSaving, setPwSaving] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [pwSuccess, setPwSuccess] = useState("");
-  const [pwError, setPwError]     = useState("");
+  const [pwError, setPwError] = useState("");
 
   // ── Profile form state ────────────────────────────────────
-  const [name, setName]       = useState("");
-  const [email, setEmail]     = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const [photoError, setPhotoError] = useState(false);
 
   // ── Password form state ───────────────────────────────────
-  const [currentPassword, setCurrentPassword]   = useState("");
-  const [newPassword, setNewPassword]           = useState("");
-  const [confirmPassword, setConfirmPassword]   = useState("");
-  const [showPasswords, setShowPasswords]       = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPasswords, setShowPasswords] = useState(false);
 
   // ── Fetch user on mount ───────────────────────────────────
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // API: GET /users/me
         const data: UserProfile = await apiFetch("/users/me");
-        setName(data.name       ?? "");
-        setEmail(data.email     ?? "");
+        setName(data.name ?? "");
+        setEmail(data.email ?? "");
         setCountry(data.country ?? "");
+        setProfilePhoto(data.profilePhoto ?? "");
       } catch {
         setError("Failed to load your profile.");
       } finally {
@@ -82,15 +99,24 @@ export default function UserProfilePage() {
       return;
     }
 
+    if (profilePhoto.trim()) {
+      try {
+        new URL(profilePhoto.trim());
+      } catch {
+        setError("Please enter a valid URL for the profile photo.");
+        return;
+      }
+    }
+
     setSaving(true);
     try {
-      // API: PATCH /users/me
       await apiFetch("/users/me", {
         method: "PATCH",
         body: JSON.stringify({
-          name:    name.trim(),
-          email:   email.trim(),
+          name: name.trim(),
+          email: email.trim(),
           country: country.trim() || undefined,
+          profilePhoto: profilePhoto.trim() || null,
         }),
       });
       setSuccess("Profile updated successfully!");
@@ -122,14 +148,9 @@ export default function UserProfilePage() {
 
     setPwSaving(true);
     try {
-      // API: POST /users/me/change-password
       await apiFetch("/users/me/change-password", {
         method: "POST",
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          confirmPassword,
-        }),
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword }),
       });
       setPwSuccess("Password updated successfully!");
       setCurrentPassword("");
@@ -142,7 +163,25 @@ export default function UserProfilePage() {
     }
   };
 
-  // ── Loading ───────────────────────────────────────────────
+  // ── Avatar: image or initial fallback ────────────────────
+  const Avatar = ({ size = 16 }: { size?: number }) => {
+    const cls = `h-${size} w-${size}`;
+    return profilePhoto.trim() && !photoError ? (
+      <img
+        src={profilePhoto.trim()}
+        alt={name || "Profile photo"}
+        onError={() => setPhotoError(true)}
+        className={`${cls} rounded-full object-cover ring-4 ring-orange-100`}
+      />
+    ) : (
+      <div
+        className={`flex ${cls} items-center justify-center rounded-full bg-[#ff6600] text-2xl font-black text-white ring-4 ring-orange-100`}
+      >
+        {name.charAt(0).toUpperCase() || "?"}
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -154,7 +193,6 @@ export default function UserProfilePage() {
     );
   }
 
-  // ── Page ──────────────────────────────────────────────────
   return (
     <>
       {/* ── Header ── */}
@@ -172,42 +210,70 @@ export default function UserProfilePage() {
           onClick={() => router.push("/settings")}
           className="flex w-fit items-center gap-1 rounded-lg border border-gray-200 px-3 py-2 text-xs font-semibold text-gray-500 transition-colors hover:border-[#ff6600] hover:text-[#ff6600]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           Back to Settings
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-
         {/* ── LEFT: Forms ── */}
         <div className="lg:col-span-2 space-y-6">
-
-          {/* ══════════════════════════════════════
-              SECTION 1 — Profile Details
-          ══════════════════════════════════════ */}
+          {/* ══ SECTION 1 — Profile Details ══ */}
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h2 className="mb-1 text-sm font-bold uppercase tracking-wider text-gray-500">
               Profile Details
             </h2>
             <p className="mb-5 text-xs text-gray-400">
-              Update your name, email address, and country.
+              Update your name, email address, country, and profile photo.
             </p>
 
-            {/* Success / Error banners */}
             {success && (
               <div className="mb-4 flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
                 {success}
               </div>
             )}
             {error && (
               <div className="mb-4 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"
+                  />
                 </svg>
                 {error}
               </div>
@@ -261,9 +327,79 @@ export default function UserProfilePage() {
                 >
                   <option value="">— Select your country —</option>
                   {COUNTRIES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
                   ))}
                 </select>
+              </div>
+
+              {/* ── Profile Photo URL (NEW) ── */}
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-gray-600">
+                  Profile Photo URL{" "}
+                  <span className="font-normal text-gray-400">(optional)</span>
+                </label>
+                <div className="flex items-center gap-3">
+                  {/* Live preview thumbnail */}
+                  <div className="shrink-0">
+                    {profilePhoto.trim() && !photoError ? (
+                      <img
+                        src={profilePhoto.trim()}
+                        alt="Preview"
+                        onError={() => setPhotoError(true)}
+                        onLoad={() => setPhotoError(false)}
+                        className="h-10 w-10 rounded-full object-cover ring-2 ring-orange-200"
+                      />
+                    ) : (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 ring-2 ring-gray-200">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={1.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a9 9 0 1115 0"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="url"
+                    value={profilePhoto}
+                    onChange={(e) => {
+                      setProfilePhoto(e.target.value);
+                      setPhotoError(false);
+                    }}
+                    placeholder="https://example.com/photo.jpg"
+                    className={`${inputClass} ${
+                      profilePhoto.trim() && photoError
+                        ? "border-red-300 focus:border-red-400 focus:ring-red-200"
+                        : profilePhoto.trim() && !photoError
+                          ? "border-green-300 focus:border-green-400 focus:ring-green-100"
+                          : ""
+                    }`}
+                  />
+                </div>
+                {profilePhoto.trim() && photoError && (
+                  <p className="mt-1 text-xs text-red-500">
+                    Could not load image — check the URL.
+                  </p>
+                )}
+                {profilePhoto.trim() && !photoError && (
+                  <p className="mt-1 text-xs text-green-600">
+                    ✓ Image loaded successfully
+                  </p>
+                )}
+                <p className="mt-1 text-xs text-gray-400">
+                  Paste a direct link to an image (JPG, PNG, WebP, etc.).
+                </p>
               </div>
 
               <button
@@ -276,9 +412,7 @@ export default function UserProfilePage() {
             </form>
           </div>
 
-          {/* ══════════════════════════════════════
-              SECTION 2 — Change Password
-          ══════════════════════════════════════ */}
+          {/* ══ SECTION 2 — Change Password ══ */}
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h2 className="mb-1 text-sm font-bold uppercase tracking-wider text-gray-500">
               Change Password
@@ -287,26 +421,46 @@ export default function UserProfilePage() {
               Use a strong password of at least 8 characters.
             </p>
 
-            {/* Password banners */}
             {pwSuccess && (
               <div className="mb-4 flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
                 {pwSuccess}
               </div>
             )}
             {pwError && (
               <div className="mb-4 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"
+                  />
                 </svg>
                 {pwError}
               </div>
             )}
 
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
-              {/* Show/hide toggle */}
               <div className="flex items-center justify-end">
                 <button
                   type="button"
@@ -317,7 +471,6 @@ export default function UserProfilePage() {
                 </button>
               </div>
 
-              {/* Current password */}
               <div>
                 <label className="mb-1 block text-xs font-semibold text-gray-600">
                   Current Password <span className="text-[#ff6600]">*</span>
@@ -332,7 +485,6 @@ export default function UserProfilePage() {
                 />
               </div>
 
-              {/* New + confirm — 2 col on sm+ */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label className="mb-1 block text-xs font-semibold text-gray-600">
@@ -347,7 +499,6 @@ export default function UserProfilePage() {
                     required
                     className={inputClass}
                   />
-                  {/* Strength indicator */}
                   {newPassword.length > 0 && (
                     <div className="mt-1.5 flex items-center gap-2">
                       {[1, 2, 3, 4].map((level) => {
@@ -358,25 +509,15 @@ export default function UserProfilePage() {
                           /[^A-Za-z0-9]/.test(newPassword)
                             ? 4
                             : newPassword.length >= 10 &&
-                              /[A-Z]/.test(newPassword)
-                            ? 3
-                            : newPassword.length >= 8
-                            ? 2
-                            : 1;
+                                /[A-Z]/.test(newPassword)
+                              ? 3
+                              : newPassword.length >= 8
+                                ? 2
+                                : 1;
                         return (
                           <div
                             key={level}
-                            className={`h-1 flex-1 rounded-full transition-colors ${
-                              level <= strength
-                                ? strength === 4
-                                  ? "bg-green-500"
-                                  : strength === 3
-                                  ? "bg-blue-500"
-                                  : strength === 2
-                                  ? "bg-[#ff6600]"
-                                  : "bg-red-400"
-                                : "bg-gray-200"
-                            }`}
+                            className={`h-1 flex-1 rounded-full transition-colors ${level <= strength ? (strength === 4 ? "bg-green-500" : strength === 3 ? "bg-blue-500" : strength === 2 ? "bg-[#ff6600]" : "bg-red-400") : "bg-gray-200"}`}
                           />
                         );
                       })}
@@ -386,11 +527,12 @@ export default function UserProfilePage() {
                         /[0-9]/.test(newPassword) &&
                         /[^A-Za-z0-9]/.test(newPassword)
                           ? "Strong"
-                          : newPassword.length >= 10 && /[A-Z]/.test(newPassword)
-                          ? "Good"
-                          : newPassword.length >= 8
-                          ? "Fair"
-                          : "Weak"}
+                          : newPassword.length >= 10 &&
+                              /[A-Z]/.test(newPassword)
+                            ? "Good"
+                            : newPassword.length >= 8
+                              ? "Fair"
+                              : "Weak"}
                       </span>
                     </div>
                   )}
@@ -398,7 +540,8 @@ export default function UserProfilePage() {
 
                 <div>
                   <label className="mb-1 block text-xs font-semibold text-gray-600">
-                    Confirm New Password <span className="text-[#ff6600]">*</span>
+                    Confirm New Password{" "}
+                    <span className="text-[#ff6600]">*</span>
                   </label>
                   <input
                     type={showPasswords ? "text" : "password"}
@@ -406,19 +549,17 @@ export default function UserProfilePage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className={`${inputClass} ${
-                      confirmPassword && confirmPassword !== newPassword
-                        ? "border-red-300 focus:border-red-400 focus:ring-red-200"
-                        : confirmPassword && confirmPassword === newPassword
-                        ? "border-green-300 focus:border-green-400 focus:ring-green-100"
-                        : ""
-                    }`}
+                    className={`${inputClass} ${confirmPassword && confirmPassword !== newPassword ? "border-red-300 focus:border-red-400 focus:ring-red-200" : confirmPassword && confirmPassword === newPassword ? "border-green-300 focus:border-green-400 focus:ring-green-100" : ""}`}
                   />
                   {confirmPassword && confirmPassword !== newPassword && (
-                    <p className="mt-1 text-xs text-red-500">Passwords do not match</p>
+                    <p className="mt-1 text-xs text-red-500">
+                      Passwords do not match
+                    </p>
                   )}
                   {confirmPassword && confirmPassword === newPassword && (
-                    <p className="mt-1 text-xs text-green-600">✓ Passwords match</p>
+                    <p className="mt-1 text-xs text-green-600">
+                      ✓ Passwords match
+                    </p>
                   )}
                 </div>
               </div>
@@ -432,19 +573,13 @@ export default function UserProfilePage() {
               </button>
             </form>
           </div>
-
         </div>
 
         {/* ── RIGHT: Summary ── */}
         <div className="space-y-6">
-
-          {/* Account Summary */}
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-            {/* Avatar */}
             <div className="mb-4 flex flex-col items-center gap-3 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ff6600] text-2xl font-black text-white ring-4 ring-orange-100">
-                {name.charAt(0).toUpperCase() || "?"}
-              </div>
+              <Avatar size={16} />
               <div>
                 <p className="font-bold text-gray-900">{name || "—"}</p>
                 <p className="text-xs text-gray-500">{email || "—"}</p>
@@ -454,14 +589,20 @@ export default function UserProfilePage() {
               </div>
             </div>
 
-            {/* Summary rows */}
             <ul className="divide-y divide-gray-100 text-sm">
               {[
-                { label: "Name",    value: name    || "Not set" },
-                { label: "Email",   value: email   || "Not set" },
+                { label: "Name", value: name || "Not set" },
+                { label: "Email", value: email || "Not set" },
                 { label: "Country", value: country || "Not set" },
+                {
+                  label: "Photo",
+                  value: profilePhoto.trim() ? "Set" : "Not set",
+                },
               ].map(({ label, value }) => (
-                <li key={label} className="flex items-center justify-between py-2.5">
+                <li
+                  key={label}
+                  className="flex items-center justify-between py-2.5"
+                >
                   <span className="text-gray-500">{label}</span>
                   <span className="max-w-[140px] truncate text-right font-semibold text-gray-900">
                     {value}
@@ -471,9 +612,10 @@ export default function UserProfilePage() {
             </ul>
           </div>
 
-          {/* Password tips */}
           <div className="rounded-lg border border-orange-200 bg-orange-50 p-5">
-            <p className="mb-2 text-xs font-bold text-[#ff6600]">🔒 Password Tips</p>
+            <p className="mb-2 text-xs font-bold text-[#ff6600]">
+              🔒 Password Tips
+            </p>
             <ul className="space-y-1 text-xs leading-relaxed text-orange-700">
               <li>• At least 8 characters long</li>
               <li>• Mix uppercase and lowercase letters</li>
@@ -481,7 +623,6 @@ export default function UserProfilePage() {
               <li>• Avoid using personal information</li>
             </ul>
           </div>
-
         </div>
       </div>
     </>

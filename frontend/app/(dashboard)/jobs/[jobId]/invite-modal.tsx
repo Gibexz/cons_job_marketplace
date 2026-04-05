@@ -1,43 +1,43 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { apiFetch } from '@/lib/api';
-import WorkerProfileModal from './worker-profile-modal';
+"use client";
+import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/api";
+import WorkerProfileModal from "./worker-profile-modal";
 
 // ── TYPES ─────────────────────────────────────────────────────
 interface Worker {
-  id:     string;
+  id: string;
   skills: string[];
   user: {
-    name:   string;
-    email:  string;
+    name: string;
+    email: string;
     phone?: string;
   };
   // Additional profile fields for the profile popup
-  bio?:        string;
+  bio?: string;
   experience?: string;
-  location?:   string;
-  rating?:     number;
+  location?: string;
+  rating?: number;
 }
 
 interface Job {
-  id:     string;
-  title:  string;
+  id: string;
+  title: string;
   skills: string[];
 }
 
 interface Props {
-  job:     Job;
+  job: Job;
   onClose: () => void;
 }
 
 // ─────────────────────────────────────────────────────────────
 export default function InviteWorkerModal({ job, onClose }: Props) {
-  const [workers, setWorkers]         = useState<Worker[]>([]);
-  const [loading, setLoading]         = useState(true);
-  const [error, setError]             = useState('');
+  const [workers, setWorkers] = useState<Worker[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   // Tracks which workers have been invited this session
-  const [invitedIds, setInvitedIds]   = useState<Set<string>>(new Set());
-  const [invitingId, setInvitingId]   = useState<string | null>(null);
+  const [invitedIds, setInvitedIds] = useState<Set<string>>(new Set());
+  const [invitingId, setInvitingId] = useState<string | null>(null);
   // Second popup — selected worker for profile view
   const [profileWorker, setProfileWorker] = useState<Worker | null>(null);
 
@@ -47,12 +47,13 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
 
   async function loadWorkers() {
     try {
-      const skills = job.skills.join(',');
+      const skills = job.skills.join(",");
       // API: GET /workers/match?skills=... — returns workers matching job skills
-      const data = await apiFetch(`/workers/match?skills=${skills}`);
+      // const data = await apiFetch(`/workers/match?skills=${skills}`);
+      const data = await apiFetch(`/worker-profile/match?skills=${skills}`);
       setWorkers(data);
     } catch (err: any) {
-      setError(err.message || 'Failed to load workers.');
+      setError(err.message || "Failed to load workers.");
     } finally {
       setLoading(false);
     }
@@ -62,14 +63,14 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
     setInvitingId(workerId);
     try {
       // API: POST /invites — sends a job invite to a worker
-      await apiFetch('/invites', {
-        method: 'POST',
+      await apiFetch("/invites", {
+        method: "POST",
         body: JSON.stringify({ jobId: job.id, workerId }),
       });
       // Mark as invited so button becomes disabled
       setInvitedIds((prev) => new Set(prev).add(workerId));
     } catch (err: any) {
-      alert(err.message || 'Failed to send invite.');
+      alert(err.message || "Failed to send invite.");
     } finally {
       setInvitingId(null);
     }
@@ -87,7 +88,6 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
       {/* ── MODAL PANEL ───────────────────────────────────── */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="flex w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
-
           {/* Header */}
           <div className="flex items-start justify-between border-b border-gray-100 px-5 py-4">
             <div>
@@ -95,28 +95,55 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
                 Invite Workers
               </h2>
               <p className="mt-0.5 text-xs text-gray-500">
-                Matching workers for <span className="font-semibold text-[#ff6600]">{job.title}</span>
+                Matching workers for{" "}
+                <span className="font-semibold text-[#ff6600]">
+                  {job.title}
+                </span>
               </p>
             </div>
             <button
               onClick={onClose}
               className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
 
           {/* Body — scrollable */}
           <div className="max-h-[60vh] overflow-y-auto">
-
             {/* Loading */}
             {loading && (
               <div className="flex flex-col items-center gap-3 py-12 text-gray-400">
-                <svg className="h-6 w-6 animate-spin text-[#ff6600]" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                <svg
+                  className="h-6 w-6 animate-spin text-[#ff6600]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  />
                 </svg>
                 <p className="text-sm">Finding matching workers...</p>
               </div>
@@ -132,8 +159,18 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
             {/* Empty */}
             {!loading && !error && workers.length === 0 && (
               <div className="flex flex-col items-center gap-3 py-12 text-center text-gray-400">
-                <svg className="h-10 w-10 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                <svg
+                  className="h-10 w-10 text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
                 <p className="text-sm font-medium">No matching workers found</p>
                 <p className="text-xs">Try adding more skills to this job.</p>
@@ -144,7 +181,7 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
             {!loading && !error && workers.length > 0 && (
               <ul className="divide-y divide-gray-100">
                 {workers.map((worker) => {
-                  const isInvited  = invitedIds.has(worker.id);
+                  const isInvited = invitedIds.has(worker.id);
                   const isInviting = invitingId === worker.id;
 
                   return (
@@ -187,7 +224,6 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
 
                       {/* Action buttons */}
                       <div className="flex shrink-0 items-center gap-2 pl-13 sm:pl-0">
-
                         {/* View Profile — opens second popup */}
                         <button
                           onClick={() => setProfileWorker(worker)}
@@ -212,14 +248,29 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
                           >
                             {isInviting ? (
                               <>
-                                <svg className="h-3 w-3 animate-spin" fill="none" viewBox="0 0 24 24">
-                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                <svg
+                                  className="h-3 w-3 animate-spin"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                  />
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                                  />
                                 </svg>
                                 Sending...
                               </>
                             ) : (
-                              'Invite'
+                              "Invite"
                             )}
                           </button>
                         )}
@@ -234,7 +285,8 @@ export default function InviteWorkerModal({ job, onClose }: Props) {
           {/* Footer */}
           <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50 px-5 py-3">
             <p className="text-xs text-gray-400">
-              {invitedIds.size} invite{invitedIds.size !== 1 ? 's' : ''} sent this session
+              {invitedIds.size} invite{invitedIds.size !== 1 ? "s" : ""} sent
+              this session
             </p>
             <button
               onClick={onClose}

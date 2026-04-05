@@ -10,6 +10,7 @@ export declare class UsersController {
         name: string;
         country: string | null;
         createdAt: Date;
+        profilePhoto: string | null;
         workerProfile: {
             id: string;
             skills: string[];
@@ -37,6 +38,7 @@ export declare class UsersController {
         name: string;
         country: string | null;
         createdAt: Date;
+        profilePhoto: string | null;
     }>;
     changePassword(req: any, dto: ChangePasswordDto): Promise<{
         message: string;

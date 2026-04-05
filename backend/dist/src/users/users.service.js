@@ -23,6 +23,7 @@ let UsersService = class UsersService {
                 name: true,
                 email: true,
                 country: true,
+                profilePhoto: true,
                 createdAt: true,
                 _count: {
                     select: {
@@ -79,6 +80,7 @@ let UsersService = class UsersService {
                 name: true,
                 email: true,
                 country: true,
+                profilePhoto: true,
                 createdAt: true,
             },
         });

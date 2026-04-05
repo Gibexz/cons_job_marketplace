@@ -31,6 +31,7 @@ export type UserMinAggregateOutputType = {
   name: string | null
   country: string | null
   createdAt: Date | null
+  profilePhoto: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -40,6 +41,7 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   country: string | null
   createdAt: Date | null
+  profilePhoto: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -49,6 +51,7 @@ export type UserCountAggregateOutputType = {
   name: number
   country: number
   createdAt: number
+  profilePhoto: number
   _all: number
 }
 
@@ -60,6 +63,7 @@ export type UserMinAggregateInputType = {
   name?: true
   country?: true
   createdAt?: true
+  profilePhoto?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -69,6 +73,7 @@ export type UserMaxAggregateInputType = {
   name?: true
   country?: true
   createdAt?: true
+  profilePhoto?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -78,6 +83,7 @@ export type UserCountAggregateInputType = {
   name?: true
   country?: true
   createdAt?: true
+  profilePhoto?: true
   _all?: true
 }
 
@@ -160,6 +166,7 @@ export type UserGroupByOutputType = {
   name: string
   country: string | null
   createdAt: Date
+  profilePhoto: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -190,6 +197,7 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   country?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profilePhoto?: Prisma.StringNullableFilter<"User"> | string | null
   jobs?: Prisma.JobListRelationFilter
   workerProfile?: Prisma.XOR<Prisma.WorkerProfileNullableScalarRelationFilter, Prisma.WorkerProfileWhereInput> | null
   company?: Prisma.CompanyListRelationFilter
@@ -202,6 +210,7 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   jobs?: Prisma.JobOrderByRelationAggregateInput
   workerProfile?: Prisma.WorkerProfileOrderByWithRelationInput
   company?: Prisma.CompanyOrderByRelationAggregateInput
@@ -217,6 +226,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   country?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profilePhoto?: Prisma.StringNullableFilter<"User"> | string | null
   jobs?: Prisma.JobListRelationFilter
   workerProfile?: Prisma.XOR<Prisma.WorkerProfileNullableScalarRelationFilter, Prisma.WorkerProfileWhereInput> | null
   company?: Prisma.CompanyListRelationFilter
@@ -229,6 +239,7 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -244,6 +255,7 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   country?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -253,6 +265,7 @@ export type UserCreateInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobCreateNestedManyWithoutPostedByInput
   workerProfile?: Prisma.WorkerProfileCreateNestedOneWithoutUserInput
   company?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
@@ -265,6 +278,7 @@ export type UserUncheckedCreateInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutPostedByInput
   workerProfile?: Prisma.WorkerProfileUncheckedCreateNestedOneWithoutUserInput
   company?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
@@ -277,6 +291,7 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUpdateManyWithoutPostedByNestedInput
   workerProfile?: Prisma.WorkerProfileUpdateOneWithoutUserNestedInput
   company?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
@@ -289,6 +304,7 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUncheckedUpdateManyWithoutPostedByNestedInput
   workerProfile?: Prisma.WorkerProfileUncheckedUpdateOneWithoutUserNestedInput
   company?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
@@ -301,6 +317,7 @@ export type UserCreateManyInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -310,6 +327,7 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -319,6 +337,7 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -328,6 +347,7 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   country?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -337,6 +357,7 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   country?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -346,6 +367,7 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   country?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  profilePhoto?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -414,6 +436,7 @@ export type UserCreateWithoutJobsInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   workerProfile?: Prisma.WorkerProfileCreateNestedOneWithoutUserInput
   company?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
 }
@@ -425,6 +448,7 @@ export type UserUncheckedCreateWithoutJobsInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   workerProfile?: Prisma.WorkerProfileUncheckedCreateNestedOneWithoutUserInput
   company?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -452,6 +476,7 @@ export type UserUpdateWithoutJobsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workerProfile?: Prisma.WorkerProfileUpdateOneWithoutUserNestedInput
   company?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
 }
@@ -463,6 +488,7 @@ export type UserUncheckedUpdateWithoutJobsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workerProfile?: Prisma.WorkerProfileUncheckedUpdateOneWithoutUserNestedInput
   company?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -474,6 +500,7 @@ export type UserCreateWithoutWorkerProfileInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobCreateNestedManyWithoutPostedByInput
   company?: Prisma.CompanyCreateNestedManyWithoutOwnerInput
 }
@@ -485,6 +512,7 @@ export type UserUncheckedCreateWithoutWorkerProfileInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutPostedByInput
   company?: Prisma.CompanyUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -512,6 +540,7 @@ export type UserUpdateWithoutWorkerProfileInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUpdateManyWithoutPostedByNestedInput
   company?: Prisma.CompanyUpdateManyWithoutOwnerNestedInput
 }
@@ -523,6 +552,7 @@ export type UserUncheckedUpdateWithoutWorkerProfileInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUncheckedUpdateManyWithoutPostedByNestedInput
   company?: Prisma.CompanyUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -534,6 +564,7 @@ export type UserCreateWithoutCompanyInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobCreateNestedManyWithoutPostedByInput
   workerProfile?: Prisma.WorkerProfileCreateNestedOneWithoutUserInput
 }
@@ -545,6 +576,7 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   name: string
   country?: string | null
   createdAt?: Date | string
+  profilePhoto?: string | null
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutPostedByInput
   workerProfile?: Prisma.WorkerProfileUncheckedCreateNestedOneWithoutUserInput
 }
@@ -572,6 +604,7 @@ export type UserUpdateWithoutCompanyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUpdateManyWithoutPostedByNestedInput
   workerProfile?: Prisma.WorkerProfileUpdateOneWithoutUserNestedInput
 }
@@ -583,6 +616,7 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUncheckedUpdateManyWithoutPostedByNestedInput
   workerProfile?: Prisma.WorkerProfileUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -634,6 +668,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   country?: boolean
   createdAt?: boolean
+  profilePhoto?: boolean
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   workerProfile?: boolean | Prisma.User$workerProfileArgs<ExtArgs>
   company?: boolean | Prisma.User$companyArgs<ExtArgs>
@@ -647,6 +682,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   country?: boolean
   createdAt?: boolean
+  profilePhoto?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -656,6 +692,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   country?: boolean
   createdAt?: boolean
+  profilePhoto?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -665,9 +702,10 @@ export type UserSelectScalar = {
   name?: boolean
   country?: boolean
   createdAt?: boolean
+  profilePhoto?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "country" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "country" | "createdAt" | "profilePhoto", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   workerProfile?: boolean | Prisma.User$workerProfileArgs<ExtArgs>
@@ -691,6 +729,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     country: string | null
     createdAt: Date
+    profilePhoto: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1123,6 +1162,7 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly country: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly profilePhoto: Prisma.FieldRef<"User", 'String'>
 }
     
 
