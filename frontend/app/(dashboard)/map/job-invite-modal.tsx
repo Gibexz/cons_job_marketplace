@@ -1,14 +1,20 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { apiFetch } from '@/lib/api';
-import { inviteWorker } from '@/lib/invites';
+"use client";
+import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/api";
+import { inviteWorker } from "@/lib/invites";
 
-export default function JobInviteModal({ job, onClose }: { job: any; onClose: () => void }) {
+export default function JobInviteModal({
+  job,
+  onClose,
+}: {
+  job: any;
+  onClose: () => void;
+}) {
   const [workers, setWorkers] = useState<any[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -17,8 +23,8 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
 
   async function loadMatchingWorkers() {
     try {
-      const skills = job.skills.join(',');
-      const data = await apiFetch(`/workers/match?skills=${skills}`);
+      const skills = job.skills.join(",");
+      const data = await apiFetch(`/worker-profile/match?skills=${skills}`);
       setWorkers(data);
     } catch (err: any) {
       setError(err.message);
@@ -29,7 +35,9 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
 
   function toggle(workerId: string) {
     setSelected((prev) =>
-      prev.includes(workerId) ? prev.filter((id) => id !== workerId) : [...prev, workerId]
+      prev.includes(workerId)
+        ? prev.filter((id) => id !== workerId)
+        : [...prev, workerId],
     );
   }
 
@@ -42,7 +50,7 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
       setSuccess(true);
       setTimeout(onClose, 1500);
     } catch (err: any) {
-      setError(err.message || 'Failed to send invites.');
+      setError(err.message || "Failed to send invites.");
     } finally {
       setSending(false);
     }
@@ -52,7 +60,6 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
     // Backdrop
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-xl bg-white shadow-2xl">
-
         {/* Modal Header */}
         <div className="flex items-start justify-between border-b border-gray-200 px-5 py-4">
           <div>
@@ -63,8 +70,18 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
             onClick={onClose}
             className="ml-4 rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -78,9 +95,24 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
           {/* States */}
           {loading && (
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <svg className="h-4 w-4 animate-spin text-[#ff6600]" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              <svg
+                className="h-4 w-4 animate-spin text-[#ff6600]"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
               </svg>
               Loading workers...
             </div>
@@ -100,7 +132,9 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
 
           {/* Worker List */}
           {!loading && workers.length === 0 && !error && (
-            <p className="text-sm text-gray-500">No matching workers found for this job.</p>
+            <p className="text-sm text-gray-500">
+              No matching workers found for this job.
+            </p>
           )}
 
           <ul className="space-y-2">
@@ -111,8 +145,8 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
                   <label
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors ${
                       isSelected
-                        ? 'border-[#ff6600] bg-orange-50'
-                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        ? "border-[#ff6600] bg-orange-50"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
                     <input
@@ -125,8 +159,12 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
                       {worker.user.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-800">{worker.user.name}</p>
-                      <p className="text-xs text-gray-500">{worker.skills.join(', ')}</p>
+                      <p className="text-sm font-semibold text-gray-800">
+                        {worker.user.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {worker.skills.join(", ")}
+                      </p>
                     </div>
                   </label>
                 </li>
@@ -138,7 +176,7 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
         {/* Modal Footer */}
         <div className="flex items-center justify-between border-t border-gray-200 px-5 py-4">
           <span className="text-xs text-gray-500">
-            {selected.length} worker{selected.length !== 1 ? 's' : ''} selected
+            {selected.length} worker{selected.length !== 1 ? "s" : ""} selected
           </span>
           <div className="flex gap-2">
             <button
@@ -152,7 +190,7 @@ export default function JobInviteModal({ job, onClose }: { job: any; onClose: ()
               disabled={selected.length === 0 || sending}
               className="rounded-lg bg-[#ff6600] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#e65c00] disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {sending ? 'Sending...' : `Send Invites (${selected.length})`}
+              {sending ? "Sending..." : `Send Invites (${selected.length})`}
             </button>
           </div>
         </div>

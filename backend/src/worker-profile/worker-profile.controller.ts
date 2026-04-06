@@ -44,9 +44,12 @@ export class WorkerProfileController {
     return this.service.getWorkersForMap();
   }
 
+  // ⚠️ Must be BEFORE any :id param route
+  // GET /worker-profile/match?skills=builder,mason,bricklayer
   @Get('match')
-  getMatchingWorkers(@Query('skills') skills: string) {
-    const skillsArray = skills ? skills.split(',') : [];
-    return this.service.getMatchingWorkers(skillsArray);
+  @UseGuards(JwtAuthGuard)
+  matchBySkills(@Query('skills') skills: string) {
+    const skillsArray = skills ? skills.split(',').map((s) => s.trim()) : [];
+    return this.service.matchBySkills(skillsArray);
   }
 }

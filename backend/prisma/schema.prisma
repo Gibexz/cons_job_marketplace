@@ -16,6 +16,7 @@ model User {
   country   String?
   createdAt DateTime @default(now())
   profilePhoto String?
+  phone     String?
 
   jobs          Job[]
   workerProfile WorkerProfile?

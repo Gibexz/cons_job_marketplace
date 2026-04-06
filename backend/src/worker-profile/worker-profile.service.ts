@@ -65,20 +65,18 @@ export class WorkerProfileService {
     });
   }
   // ── Get current user profile ─────────────────────────────
-  async getMatchingWorkers(skills: string[]) {
-    return this.prisma.workerProfile.findMany({
-      where: {
-        available: true,
-        skills: { hasSome: skills },
+  async matchBySkills(skills: string[]): Promise<any[]> {
+  return this.prisma.workerProfile.findMany({
+    where: {
+      skills: {
+        hasSome: skills, // Prisma array filter — matches any skill in the list
       },
-      select: {
-        id: true,
-        lat: true,
-        lng: true,
-        skills: true,
-        experience: true,
-        user: { select: { id: true, name: true } },
+    },
+    include: {
+      user: {
+        select: { name: true, email: true, phone: true },
       },
-    });
-  }
+    },
+  });
+}
 }

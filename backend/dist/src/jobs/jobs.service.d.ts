@@ -19,15 +19,15 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     }>;
     getAllJobs(): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
         company: {
@@ -38,15 +38,15 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     })[]>;
     getAllActiveJobs(): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
         company: {
@@ -57,15 +57,15 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     })[]>;
     getJobsByUser(userId: string, status?: JobStatus): import("../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
         company: {
@@ -85,15 +85,15 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     })[]>;
     getJobCountsByStatus(userId: string): Promise<{
         all: number;
@@ -112,15 +112,15 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     }>;
     getJobById(id: string): Promise<({
         company: {
@@ -140,13 +140,13 @@ export declare class JobsService {
             } & {
                 id: string;
                 createdAt: Date;
-                lat: number | null;
-                lng: number | null;
-                skills: string[];
                 userId: string;
+                skills: string[];
                 experience: import("../generated/prisma/enums.js").ExperienceLevel;
                 available: boolean;
                 bio: string | null;
+                lat: number | null;
+                lng: number | null;
                 updatedAt: Date;
             };
         } & {
@@ -164,40 +164,40 @@ export declare class JobsService {
     } & {
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     }) | null>;
     getJobsForMap(): Promise<{
-        id: string;
-        title: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
-        active: boolean;
-        status: JobStatus;
         company: {
             id: string;
             name: string;
         };
+        id: string;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
+        title: string;
+        active: boolean;
+        status: JobStatus;
     }[]>;
     deleteJob(id: string, userId: string): Promise<{
         id: string;
         createdAt: Date;
+        skills: string[];
+        lat: number | null;
+        lng: number | null;
         title: string;
         description: string;
         companyId: string;
-        postedById: string;
-        lat: number | null;
-        lng: number | null;
-        skills: string[];
         active: boolean;
         status: JobStatus;
+        postedById: string;
     }>;
 }

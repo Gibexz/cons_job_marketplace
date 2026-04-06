@@ -587,6 +587,7 @@ export declare const UserScalarFieldEnum: {
     readonly country: "country";
     readonly createdAt: "createdAt";
     readonly profilePhoto: "profilePhoto";
+    readonly phone: "phone";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 export declare const JobScalarFieldEnum: {
