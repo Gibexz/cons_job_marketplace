@@ -42,7 +42,7 @@ export class WorkerProfileService {
     });
   }
 
-  getWorkersForMap() {
+  async getWorkersForMap() {
     return this.prisma.workerProfile.findMany({
       where: {
         lat: { not: null },
@@ -64,19 +64,37 @@ export class WorkerProfileService {
       },
     });
   }
-  // ── Get current user profile ─────────────────────────────
+
   async matchBySkills(skills: string[]): Promise<any[]> {
-  return this.prisma.workerProfile.findMany({
-    where: {
-      skills: {
-        hasSome: skills, // Prisma array filter — matches any skill in the list
+    return this.prisma.workerProfile.findMany({
+      where: {
+        skills: {
+          hasSome: skills,
+        },
       },
-    },
-    include: {
-      user: {
-        select: { name: true, email: true, phone: true },
+      include: {
+        user: {
+          select: { name: true, email: true, phone: true },
+        },
       },
-    },
-  });
-}
+    });
+  } // ← this brace was missing, causing getAll to be swallowed inside matchBySkills
+
+  async getAll() {
+    return this.prisma.workerProfile.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            profilePhoto: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 }

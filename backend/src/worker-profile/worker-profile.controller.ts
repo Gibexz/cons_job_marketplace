@@ -52,4 +52,10 @@ export class WorkerProfileController {
     const skillsArray = skills ? skills.split(',').map((s) => s.trim()) : [];
     return this.service.matchBySkills(skillsArray);
   }
+
+  // GET /worker-profile/all
+  @Get('all')
+  getAll() {
+    return this.service.getAll();
+  }
 }
