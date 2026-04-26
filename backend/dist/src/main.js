@@ -9,6 +9,7 @@ async function bootstrap() {
             'http://localhost:3000',
             'http://10.224.232.136:3000',
             'https://unhemmed-semioratorically-elli.ngrok-free.dev',
+            'https://satiably-schizocarpic-loura.ngrok-free.dev',
         ],
         credentials: true,
     });

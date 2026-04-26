@@ -7,11 +7,13 @@ import {
   UseGuards,
   Req,
   Query,
+  Param,
 } from '@nestjs/common';
 import { WorkerProfileService } from './worker-profile.service.js';
 import { JwtAuthGuard } from '../auth/jwt.guard.js';
 import { CreateWorkerProfileDto } from './dto/create-worker-profile.dto.js';
 import { UpdateWorkerProfileDto } from './dto/update-worker-profile.dto.js';
+
 
 @Controller('worker-profile')
 @UseGuards(JwtAuthGuard)
@@ -57,5 +59,11 @@ export class WorkerProfileController {
   @Get('all')
   getAll() {
     return this.service.getAll();
+  }
+
+  // GET /worker-profile/:id — public, single worker
+  @Get(':id')
+  getWorkerById(@Param('id') id: string) {
+    return this.service.getWorkerById(id);
   }
 }

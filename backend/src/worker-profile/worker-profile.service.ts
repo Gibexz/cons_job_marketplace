@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
@@ -97,4 +97,46 @@ export class WorkerProfileService {
       },
     });
   }
+
+// ── Get single worker profile by ID (public) ──────────────────
+async getWorkerById(workerId: string) {
+  const worker = await this.prisma.workerProfile.findUnique({
+    where: { id: workerId },
+    include: {
+      user: {
+        select: {
+          id:        true,
+          name:      true,
+          email:     true,
+          country:   true,
+          createdAt: true,
+        },
+      },
+      // Job history with status and company info
+      applications: {
+        include: {
+          job: {
+            include: {
+              company: {
+                select: {
+                  id:     true,
+                  name:   true,
+                  logo:   true,
+                  rating: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      },
+    },
+  });
+
+  if (!worker) throw new NotFoundException('Worker profile not found.');
+  return worker;
 }
+
+}
+
+
